@@ -15,7 +15,7 @@ foreach (string word in words)
       //Calculating points based on whether it is a pangram or not
       //Adding the elememts to dictionary 
       //Condition to check if it is an pangram
-      if (letters.All(letters => word.Contains(letters))){
+      if (letters.All(word.Contains)){
          points = word.Length + 7;
          result.Add (word, points);
       } else {
@@ -27,7 +27,7 @@ foreach (string word in words)
 //Printing the dictionary in descending order by value
 foreach (var item in result.OrderByDescending (x => x.Value))
    //Condition to check if it is an pangram
-   if (letters.All (letters => item.Key.Contains (letters))) {
+   if (letters.All (item.Key.Contains)) {
       ForegroundColor = ConsoleColor.Green;
       WriteLine ($"{item.Value,4}.   {item.Key}");
       ResetColor ();
