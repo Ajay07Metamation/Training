@@ -8,10 +8,12 @@ while (key == ConsoleKey.Y) {
          case ConsoleKey.B:
             WriteLine ();
             WriteLine ($"The number in Binary is : {Convert.ToString (num, 2)}");
+            WriteLine($"The number in Binary is : " + binary (num));
             break;
          case ConsoleKey.H:
             WriteLine ();
             WriteLine ($"The number in Hexadecimal is : {num:X}");
+            WriteLine ($"The number in Hexadecimal is : " + hexadecimal(num));
             break;
          default:
             WriteLine ("Enter a valid key");
@@ -21,4 +23,29 @@ while (key == ConsoleKey.Y) {
       key = ReadKey ().Key;
       WriteLine ();
    }
+}
+
+String binary (int num) {
+   string result = "";
+   while (num != 0) {
+      result += (num % 2).ToString ();
+      num= num / 2;
+   }
+   return String.Concat(result.Reverse());
+}
+
+String hexadecimal(int num) {
+   string[] hexa = new string[] { "A", "B", "C", "D", "E", "F" };
+   string result = "";
+   while (num != 0) {
+      if (num % 16 < 10) {
+         result += (num % 16).ToString ();
+         num = num / 16;
+      }
+      if (num%16 >=10 && num %16 <=16) {
+         result += (hexa[(num%16)%10]).ToString ();
+         num = num / 16;
+      }
+   }
+   return String.Concat (result.Reverse ());
 }
