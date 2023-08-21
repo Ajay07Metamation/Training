@@ -1,11 +1,12 @@
 ﻿//Reverse num and check for pallindrome
 Console.Write ("Enter a Number : ");
-string num = Console.ReadLine ();
-Console.WriteLine ($"Original Number  : {num}");
-var ori = num.ToCharArray ();
-var rev = num.ToCharArray ();
-Array.Reverse (rev);
-Console.Write ("Reversed String : ");
+int.TryParse(Console.ReadLine (),out int num);
+int orig = num;
+int rev = 0;
+while (num != 0) {
+   rev = (rev * 10) + num % 10;
+   num = num / 10;
+}
 Console.WriteLine (rev);
-if (Enumerable.SequenceEqual (ori, rev)) Console.WriteLine ("It is a Pallindrome");
+if (orig ==rev) Console.WriteLine ("It is a Pallindrome");
 else Console.WriteLine ("It is not a pallindrome");
