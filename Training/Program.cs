@@ -2,14 +2,14 @@
 var key = ConsoleKey.Y;
 while (key == ConsoleKey.Y) {
    Write ("Enter number of terms for fibonacci series : ");
-   if (int.TryParse (Console.ReadLine (), out int limit) && limit > 0)
-      fibonacci (limit);
+   if (int.TryParse (ReadLine (), out int limit) && limit > 0)
+      Getfibonacci (limit);
    else if (limit == 0 || limit < 0) WriteLine ("Insufficient terms for fibinocci series");
-   Write ("Do you want to convert again : ");
+   Write ("Do you want to get Fibonacci for Another Number (Y)es or (N)o : ");
    key = ReadKey ().Key;
    WriteLine ();
 }
-void fibonacci (int limit) {
+void Getfibonacci (int limit) {
    int num1 = 0, num2 = 1, next, count = 2;
    if (limit == 1) Write ($"{num1}");
    else Write ($"{num1} {num2} ");
@@ -19,5 +19,5 @@ void fibonacci (int limit) {
       Write ($"{next} ");
       count++;
    }
-   Console.WriteLine ();
+   WriteLine ();
 }
