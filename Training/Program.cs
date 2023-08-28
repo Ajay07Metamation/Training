@@ -7,35 +7,35 @@ while (key == ConsoleKey.Y) {
       switch (Console.ReadKey ().Key) {
          case ConsoleKey.B:
             WriteLine ();
-            WriteLine ($"The number in Binary is : {Convert.ToString (num, 2)}");
-            WriteLine($"The number in Binary is : " + binary (num));
+            WriteLine ($"The Right Answer is : {Convert.ToString (num, 2)}");
+            Getbinary (num);
             break;
          case ConsoleKey.H:
             WriteLine ();
-            WriteLine ($"The number in Hexadecimal is : {num:X}");
-            WriteLine ($"The number in Hexadecimal is : " + hexadecimal(num));
+            WriteLine ($"The Right Answer is : {num:X}");
+            Gethexadecimal (num);
             break;
          default:
             WriteLine ("Enter a valid key");
             break;
       }
-      WriteLine ("Do you want to convert again");
+      WriteLine ("Do you want to convert again (Y)es or (N)o ? ");
       key = ReadKey ().Key;
       WriteLine ();
    }
 }
 
-String binary (int num) {
+void Getbinary (int num) {
    string result = "";
    while (num != 0) {
       result += (num % 2).ToString ();
       num= num / 2;
    }
-   return String.Concat(result.Reverse());
+   WriteLine ("The Binary number Obtained is : " + String.Join ("",result.Reverse ()));
 }
 
-String hexadecimal(int num) {
-   string[] hexa = new string[] { "A", "B", "C", "D", "E", "F" };
+void Gethexadecimal(int num) {
+   string[] hexa = { "A", "B", "C", "D", "E", "F" };
    string result = "";
    while (num != 0) {
       if (num % 16 < 10) {
@@ -47,5 +47,5 @@ String hexadecimal(int num) {
          num = num / 16;
       }
    }
-   return String.Concat (result.Reverse ());
+   WriteLine("The Hexadecimal number Obtained is : " + String.Join ("",result.Reverse ()));
 }
