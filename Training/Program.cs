@@ -1,34 +1,32 @@
-﻿using System.Runtime;
-using static System.Console;
+﻿using static System.Console;
 var key = ConsoleKey.Y;
 while (key == ConsoleKey.Y) {
    Write ("Enter the first number : ");
-   int.TryParse (Console.ReadLine (), out int num1);
+   int.TryParse (ReadLine (), out int num1);
    Write ("Enter the second number : ");
-   int.TryParse (Console.ReadLine (), out int num2);
+   int.TryParse (ReadLine (), out int num2);
+   (num1,num2) = (Math.Abs(num1),Math.Abs(num2));
    Write ("Do you want to convert it into (L)CM or (G)CD ?  ");
-   switch (Console.ReadKey ().Key) {
+   switch (ReadKey ().Key) {
       case ConsoleKey.L:
          WriteLine ();
-         WriteLine (lcm (num1, num2));
+         WriteLine ("LCM : " + Getlcm (num1, num2));
          break;
       case ConsoleKey.G:
          WriteLine ();
-         WriteLine (gcd (num1, num2));
+         WriteLine ("GCD : " + Getgcd (num1, num2));
          break;
       default:
          WriteLine ("Enter a valid key");
          break;
-   }
-   WriteLine ("Do you want to convert again");
-   key = ReadKey ().Key;
-   WriteLine ();
+      }
+      WriteLine ("Do you want to convert again");
+      key = ReadKey ().Key;
+      WriteLine ();
+
 }
-int lcm (int num1, int num2) {
-   int lcm = ((num1 * num2) / gcd (num1, num2));
-   return lcm;
-}
-int gcd (int num1, int num2) {
+int Getlcm (int num1,int num2)=> ((num1 * num2) / Getgcd (num1, num2));
+int Getgcd (int num1, int num2) {
    int gcd = 0;
    if (num1 > num2) {
       if (!(num1 % num2 == 0))
