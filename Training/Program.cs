@@ -13,8 +13,8 @@ if (int.TryParse (ReadLine (), out int index)) {
       }
    }
    var sortedword = words.Where (word => word == string.Join ("", word.OrderBy (c => c)));
-   if (sortedword.Count () > 0)
-      WriteLine ($"The Longest ABECEDARIAN Word is : {sortedword.OrderByDescending (word => word.Length)
-                                                                .First ()}");
-   else WriteLine ("No Abecedarian word in the array");
+   string result = sortedword.Count () > 0 ? "The Longest ABECEDARIAN Word is : " +
+                                             $"{sortedword.OrderByDescending (word => word.Length).First ()}" 
+                                             : "No Abecedarian word in the array";
+   WriteLine (result);  
 } else WriteLine ("Enter Valid Input");
