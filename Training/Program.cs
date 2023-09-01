@@ -11,7 +11,7 @@ string IsValid (string s) {
       if (!s.Any (char.IsDigit)) result += res + "Numerical \n";
       if (!s.Any (char.IsUpper)) result += res + "Upper case \n";
       if (!s.Any (char.IsLower)) result += res + "Lower case \n";
-      if (!s.Any (spl.Contains)) result += res + "Special character !@#$%^&*()-+ ";
+      if (!s.Any (spl.Contains)) result += res + "Special character " + spl;
    } else result = "Password should contain atleast 6 characters";
    if (result == "") result = "Your Password is Strong";
    return result;
