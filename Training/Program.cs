@@ -2,7 +2,7 @@
 var key = ConsoleKey.Y;
 while (key == ConsoleKey.Y) {
    Write ("Enter a Number : ");
-   if (int.TryParse (ReadLine (), out int num)) {
+   if (int.TryParse (ReadLine (), out int num) && num >= 0) {
       Write ("Do you want to convert it into (W)ords or (R)oman Numbers ?  ");
       switch (ReadKey ().Key) {
          case ConsoleKey.W:
