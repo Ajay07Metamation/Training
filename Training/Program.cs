@@ -17,5 +17,5 @@ void GetAbecedarian (int size) {
       }
    }
    WriteLine ($"The Longest ABECEDARIAN Word is : {words.Where (word => word == string.Join ("", word.OrderBy (c => c)))
-                                                        .OrderByDescending (x => x).FirstOrDefault () ?? ""}");
+                                                        .OrderByDescending (x => x.Length).FirstOrDefault () ?? ""}");
 }
