@@ -7,8 +7,8 @@ if (int.TryParse (ReadLine (), out int size) && size > 0)
 else WriteLine ("Enter Valid Input");
 
 void GetAbecedarian (int size) {
-   string[] words = new string[size];
-   for (int index = 0; index < size; index++) {
+   var words = new string[size];
+   for (int index = 0; index < words.Length; index++) {
       WriteLine ($"Enter Word {index + 1} : ");
       words[index] = ReadLine () ?? "";
       if (words[index].Length < 1 || !words[index].All (char.IsLetter)) {
@@ -16,9 +16,6 @@ void GetAbecedarian (int size) {
          index--;
       }
    }
-   var SortedWord = words.Where (word => word == string.Join ("", word.OrderBy (c => c)));
-   string result = SortedWord.Count () > 0 ? "The Longest ABECEDARIAN Word is : " +
-                                                $"{SortedWord.OrderByDescending (word => word.Length).First ()}"
-                                                : "No Abecedarian word in the array";
-   WriteLine (result);
+   WriteLine ($"The Longest ABECEDARIAN Word is : {words.Where (word => word == string.Join ("", word.OrderBy (c => c)))
+                                                        .OrderByDescending (x => x).FirstOrDefault () ?? ""}");
 }
