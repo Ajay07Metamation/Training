@@ -5,9 +5,10 @@ if (!int.TryParse (ReadLine (), out int num1) || !int.TryParse (ReadLine (), out
    WriteLine ("Enter Valid Number");
 else {
    WriteLine ($"Original Numbers : num1 = {num1} num2 = {num2}");
-   GetSwap (num1, num2);
+   PrintSwap (num1, num2);
 }
-void GetSwap (int a, int b) {
+
+void PrintSwap (int a, int b) {
    (a, b) = (b, a);
    WriteLine ($"Swapped Numbers  : num1 = {a} num2 = {b}");
 }
