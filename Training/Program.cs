@@ -2,20 +2,22 @@
 using static System.Console;
 internal class Program {
    private static void Main (string[] args) {
-      if (args.Length == 1 && int.TryParse (args[0], out int index) && index > 0 && index <= 25)
-         PrintNthArmstrong (index);
+      if (args.Length == 1 && int.TryParse (args[0], out int index) && 0 < index && index <= 25)
+         WriteLine (PrintNthArmstrong (index));
       else WriteLine ("Enter a Valid Index between 1 and 25 ");
    }
 
-   static void PrintNthArmstrong (int index) {
+   static string PrintNthArmstrong (int index) {
       int count = 0, num = 0;
       int res = 0;
+      if (0 < index && index < 10)
+         return $"The {index}th Armstrong Number : {index}";
       while (count < index) {
          num++;
          res = 0;
          int check = num;
          int exp = num.ToString ().Length;
-         while (check > 0) {
+         while (0 < check) {
             int power = 1;
             for (int i = 0; i < exp; i++)
                power *= check % 10;
@@ -24,6 +26,6 @@ internal class Program {
          }
          if (res == num) count++;
       }
-      WriteLine ($"The {index}th Armstrong Number : {res}");
+      return $"The {index}th Armstrong Number : {res}";
    }
 }
