@@ -1,37 +1,36 @@
-﻿//Program to get Integral and Fractional part of a decimal
-using static System.Console;
+﻿using static System.Console;
 
-Write ("Enter any number : ");
-if (double.TryParse (ReadLine (), out double num)) {
-   PrintIntegral (num);
-   PrintFractional (num);
+var integralList = new List<int> ();
+var fractionalList = new List<int> ();
+Write ("Enter a Number : ");
+string decimalNum = ReadLine () ?? "";
+if (decimal.TryParse (decimalNum, out decimal Num)) {
+   string[] decimalArr = decimalNum.Split ('.');
+   Write ("The Integral part is : ");
+   GetIntArrFromInt (decimalArr);
+   if (decimalNum.Contains (".")) {
+      Write ("The Fractional part is : ");
+      GetFracArrFromFrac (decimalArr);
+   } else WriteLine ("No Fractional Part");
 } else WriteLine ("Enter Valid Number");
 
-void PrintIntegral (double num) {
-   //Storing digits of integral part of number in a Array and printing it
-   int integral = (int)num;
-   int integralLength = integral.ToString ().Length;
-   int[] integralarr = new int[integralLength];
-   for (int i = integralLength - 1; i >= 0; i--) {
-      integralarr[i] = integral % 10;
-      integral /= 10;
+void GetIntArrFromInt (string[] decimalArr) {
+   int.TryParse (decimalArr[0], out int integralNum);
+   while (integralNum != 0) {
+      integralList.Add (integralNum % 10);
+      integralNum /= 10;
    }
-   Write ("Integral Part : ");
-   foreach (var integ in integralarr) {
-      Write (integ + " ");
-   }
+   integralList.Reverse ();
+   integralList.ForEach (x => Write (x + " "));
+   WriteLine ();
 }
 
-void PrintFractional (double num) {
-   //Converting number into string and printing fractional part
-   string numword = num.ToString ();
-   if (numword.All (char.IsNumber)) {
-      WriteLine ("\nNo Fractional Part");
-      return;
+void GetFracArrFromFrac (string[] decimalArr) {
+   int.TryParse (decimalArr[1], out int fractionalNum);
+   while (fractionalNum != 0) {
+      fractionalList.Add (fractionalNum % 10);
+      fractionalNum /= 10;
    }
-   var n = numword.IndexOf ('.');
-   Write ($"\nFractional part : ");
-   for (int i = n + 1; i < numword.Length; i++)
-      Write (numword[i] + " ");
+   fractionalList.Reverse ();
+   fractionalList.ForEach (x => Write (x + " "));
 }
-
