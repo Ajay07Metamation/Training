@@ -7,14 +7,14 @@ string decimalNum = ReadLine () ?? "";
 if (decimal.TryParse (decimalNum, out decimal Num)) {
    string[] decimalArr = decimalNum.Split ('.');
    Write ("The Integral part is : ");
-   GetIntArrFromInt (decimalArr);
+   GetIntListFromInt (decimalArr);
    if (decimalNum.Contains (".")) {
       Write ("The Fractional part is : ");
-      GetFracArrFromFrac (decimalArr);
+      GetFracListFromFrac (decimalArr);
    } else WriteLine ("No Fractional Part");
 } else WriteLine ("Enter Valid Number");
 
-void GetIntArrFromInt (string[] decimalArr) {
+void GetIntListFromInt (string[] decimalArr) {
    int.TryParse (decimalArr[0], out int integralNum);
    while (integralNum != 0) {
       integralList.Add (integralNum % 10);
@@ -25,7 +25,7 @@ void GetIntArrFromInt (string[] decimalArr) {
    WriteLine ();
 }
 
-void GetFracArrFromFrac (string[] decimalArr) {
+void GetFracListFromFrac (string[] decimalArr) {
    int.TryParse (decimalArr[1], out int fractionalNum);
    while (fractionalNum != 0) {
       fractionalList.Add (fractionalNum % 10);
