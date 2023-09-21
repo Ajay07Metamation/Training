@@ -7,7 +7,7 @@ using static System.Console;
 ///<summary>VOTING CONTEST</summary>
 
 Write ("Enter the Vote String : ");
-string vote = ReadLine ().ToLower().Replace(" ","");
+string vote = ReadLine ().ToLower ().Replace (" ", "");
 if (vote != null && vote.Length > 0 && vote.All (char.IsLetter)) {
    var winner = GetWinner (vote);
    WriteLine ($"The winner is {winner.Letter} with {winner.Lettercount} votes");
@@ -18,7 +18,7 @@ if (vote != null && vote.Length > 0 && vote.All (char.IsLetter)) {
 ///<param name="vote">String of votes</param>
 ///<return>Returns a tuple (multiple return Values) containg the highest occuring character and the number of occurences</return>
 
-(char Letter,int Lettercount) GetWinner (string vote) {
+(char Letter, int Lettercount) GetWinner (string vote) {
    var result = vote.GroupBy (x => x)
                     .Select (x => new { letter = x.First (), lettercount = x.Count () })
                     .OrderByDescending (x => x.lettercount)
