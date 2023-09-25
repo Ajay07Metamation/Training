@@ -26,6 +26,6 @@ internal class Program {
          }
          if (res == num) count++;
       }
-      return $"The {index}th Armstrong Number : {res}";
+      return $" Armstrong Number {index} is : {res}";
    }
 }
