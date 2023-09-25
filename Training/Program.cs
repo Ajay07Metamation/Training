@@ -16,6 +16,7 @@ if (decimal.TryParse (decimalNum, out decimal Num)) {
 
 void GetIntListFromInt (string[] decimalArr) {
    int.TryParse (decimalArr[0], out int integralNum);
+   if (integralNum == 0) WriteLine (decimalArr[0]);
    while (integralNum != 0) {
       integralList.Add (integralNum % 10);
       integralNum /= 10;
@@ -27,10 +28,11 @@ void GetIntListFromInt (string[] decimalArr) {
 
 void GetFracListFromFrac (string[] decimalArr) {
    int.TryParse (decimalArr[1], out int fractionalNum);
+   if (fractionalNum == 0) WriteLine (decimalArr[1]);
    while (fractionalNum != 0) {
       fractionalList.Add (fractionalNum % 10);
       fractionalNum /= 10;
    }
    fractionalList.Reverse ();
-   fractionalList.ForEach (x => Write (x + " "));
+   fractionalList.ForEach (x => Write (x + "  "));
 }
