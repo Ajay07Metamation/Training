@@ -7,32 +7,38 @@ string decimalNum = ReadLine () ?? "";
 if (decimal.TryParse (decimalNum, out decimal Num)) {
    string[] decimalArr = decimalNum.Split ('.');
    Write ("The Integral part is : ");
-   GetIntListFromInt (decimalArr);
+   PrintIntListFromInt (decimalArr);
    if (decimalNum.Contains (".")) {
       Write ("The Fractional part is : ");
-      GetFracListFromFrac (decimalArr);
+      PrinttFracListFromFrac (decimalArr);
    } else WriteLine ("No Fractional Part");
 } else WriteLine ("Enter Valid Number");
 
-void GetIntListFromInt (string[] decimalArr) {
+void PrintIntListFromInt (string[] decimalArr) {
    int.TryParse (decimalArr[0], out int integralNum);
-   if (integralNum == 0) WriteLine (decimalArr[0]);
+   if (integralNum == 0) foreach (var ch in decimalArr[0]) Write (ch + " ");
    while (integralNum != 0) {
       integralList.Add (integralNum % 10);
       integralNum /= 10;
    }
    integralList.Reverse ();
-   integralList.ForEach (x => Write (x + " "));
+   integralList.ForEach (x => Write (Math.Abs (x) + " "));
    WriteLine ();
 }
 
-void GetFracListFromFrac (string[] decimalArr) {
+void PrinttFracListFromFrac (string[] decimalArr) {
    int.TryParse (decimalArr[1], out int fractionalNum);
-   if (fractionalNum == 0) WriteLine (decimalArr[1]);
+   int fracLength = fractionalNum.ToString ().Length;
+   if (fractionalNum == 0) {
+      for (int i = 0; i < decimalArr[1].Length; i++) fractionalList.Add (0);
+      fractionalList.ForEach (x => Write (x + " "));
+      return;
+   }
    while (fractionalNum != 0) {
       fractionalList.Add (fractionalNum % 10);
       fractionalNum /= 10;
    }
+   if (decimalArr[1].Length > fracLength) for (int i = 0; i < decimalArr[1].Length - fracLength; i++) fractionalList.Add (0);
    fractionalList.Reverse ();
-   fractionalList.ForEach (x => Write (x + "  "));
+   fractionalList.ForEach (x => Write (x + " "));
 }
