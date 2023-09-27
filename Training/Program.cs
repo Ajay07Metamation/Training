@@ -26,7 +26,7 @@ if (chArr.Length > 0 && chArr.All (char.IsLetter) && char.IsLetter (splCh) && (s
 char[] GetSortArray (in char[] charr, char splch, char sort = 'a') {
    var SortArr = charr.Where (c => c != splch);
    SortArr = (sort == 'a') ? SortArr.Order () : SortArr.OrderDescending ();
-   return charr.Contains (splch) ? SortArr.Concat (charr.Where (c => c == splch)).ToArray () : SortArr.ToArray ();
+   return charr.Any (x => x == splch) ? SortArr.Concat (charr.Where (c => c == splch)).ToArray () : SortArr.ToArray ();
 }
 
 
