@@ -1,5 +1,4 @@
 ﻿using static System.Console;
-
 var integralList = new List<int> ();
 var fractionalList = new List<int> ();
 Write ("Enter a Number : ");
@@ -20,15 +19,11 @@ void PrintIntListFromInt (string integer) {
    while (integralNum != 0) {
       integralList.Add (integralNum % 10);
       integralNum /= 10;
+      WriteLine ();
    }
-   integralList.Reverse ();
-   integralList.ForEach (x => Write (Math.Abs (x) + " "));
-   WriteLine ();
 }
-
 void PrintFracListFromFrac (string fraction) {
    int.TryParse (fraction, out int fractionalNum);
-   int fracLength = fractionalNum.ToString ().Length;
    while (fractionalNum != 0) {
       fractionalList.Add (fractionalNum % 10);
       fractionalNum /= 10;
@@ -40,3 +35,4 @@ void PrintFracListFromFrac (string fraction) {
    fractionalList.Reverse ();
    fractionalList.ForEach (x => Write (x + " "));
 }
+
