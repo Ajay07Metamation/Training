@@ -32,13 +32,17 @@ if (vote != null && vote.Length > 0 && vote.All (char.IsLetter)) {
 ///<param name="vote">String of votes</param>
 ///<return>Returns a tuple (multiple return Values) containg the highest occuring character and the number of occurences</return>
 
-(char Letter, int LetterCount) GetWinner2 (string vote) { 
+(char Letter, int LetterCount) GetWinner2 (string vote) {
    // Dictionary to store letters and their count
-   Dictionary<char, int> count = new ();
-   foreach (var ch in vote) 
-      count[ch] = count.ContainsKey (ch) ? count[ch] + 1 : 1 ;
-   var result = count.OrderByDescending (x => x.Value).FirstOrDefault ();
-   return (result.Key, result.Value);
+   List<ValueTuple<char, int>> list = new ();
+   for (int i = 0; i < vote.Length; i++) {
+      if (list.Any (x => x.Item1 == vote[i])){
+         var index = list.FindIndex (x => x.Item1 == vote[i]);
+         list[index] = (vote[index], list[index].Item2 + 1); 
+      } else list.Add ((vote[i], 1));
+   }
+   return list.OrderByDescending (x => x.Item2).FirstOrDefault (); 
 }
+
 
 
