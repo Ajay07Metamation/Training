@@ -19,8 +19,10 @@ void PrintIntListFromInt (string integer) {
    while (integralNum != 0) {
       integralList.Add (integralNum % 10);
       integralNum /= 10;
-      WriteLine ();
    }
+   integralList.Reverse ();
+   integralList.ForEach (x => Write (x + " "));
+   WriteLine ();
 }
 void PrintFracListFromFrac (string fraction) {
    int.TryParse (fraction, out int fractionalNum);
