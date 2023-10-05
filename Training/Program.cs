@@ -21,9 +21,7 @@ list.PrintList ();
 list.Clear ();
 list.PrintList ();
 
-/// <summary>
-/// Creating a class MyList with underlying structure as array
-/// </summary>
+/// <summary>Creating a class MyList with underlying structure as array</summary>
 class MyList<T> {
    //Private variables for creating array and int variable for count
    T[] arrayList;
@@ -33,17 +31,11 @@ class MyList<T> {
       count = 0;
    }
 
-   /// <summary>
-   /// Creating property for getting count and capacity
-   /// <property name = "Count"> Gets the count of element in the list</property>
-   /// <property name = "Capacity"> Get the capacity of the underlying array structure</property>
-   /// </summary>
+   /// <summary> Creating property for getting count and capacity </summary>
    public int Count => count;
    public int Capacity => arrayList.Length;
 
-   /// <summary>
-   /// public T this[int index] is a property used to get a element at a index or set it
-   /// </summary>
+   /// <summary>public T this[int index] is a property used to get a element at a index or set it </summary>
    /// <returns>returns the element at the specified index</returns>
    /// <exception cref="IndexOutOfRangeException"></exception>
    public T this[int index] {
@@ -57,9 +49,7 @@ class MyList<T> {
       }
    }
 
-   /// <summary>
-   /// Method Add to add an element in the list at the end  
-   /// </summary>
+   /// <summary>Method Add to add an element in the list at the end </summary>
    /// <param name="a">It is the element to be added to the list</param>
    public void Add (T a) {
       if (a == null) throw new ArgumentNullException ();
@@ -67,9 +57,7 @@ class MyList<T> {
       arrayList[count++] = a;
    }
 
-   /// <summary>
-   /// Method remove to remove a particular element 
-   /// </summary>
+   /// <summary>Method remove to remove a particular element </summary>
    /// <param name="a">The element in the list to be removed</param>
    /// <exception cref="InvalidOperationException"></exception>
    public bool Remove (T a) {
@@ -80,9 +68,7 @@ class MyList<T> {
       return true;
    }
 
-   /// <summary>
-   /// Method clear to clear the list
-   /// </summary>
+   /// <summary>Method clear to clear the list </summary>
    /// <exception cref="InvalidOperationException"></exception>
    public void Clear () {
       if (arrayList.Length <= 0) throw new InvalidOperationException ();
@@ -90,9 +76,7 @@ class MyList<T> {
       count = 0;
    }
 
-   /// <summary>
-   /// Method Insert to insert a specified element at a specified index
-   /// </summary>
+   /// <summary>Method Insert to insert a specified element at a specified index </summary>
    /// <param name="index">The index where the element should be inserted</param>
    /// <param name="a">The element to be inserted</param>
    /// <exception cref="IndexOutOfRangeException"></exception>
@@ -105,9 +89,7 @@ class MyList<T> {
       count++;
    }
 
-   /// <summary>
-   /// Method RemoveAt to remove the element at a particular index
-   /// </summary>
+   /// <summary>Method RemoveAt to remove the element at a particular index </summary>
    /// <param name="index">The index at which the element is to be removed</param>
    /// <exception cref="IndexOutOfRangeException"></exception>
    public void RemoveAt (int index) {
@@ -117,9 +99,7 @@ class MyList<T> {
       count--;
    }
 
-   /// <summary>
-   /// Method to print the list
-   /// </summary>
+   /// <summary>Method to print the list</summary>
    public void PrintList () {
       Console.Write ("List : ");
       for (int i = 0; i < count; i++) {
