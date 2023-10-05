@@ -20,9 +20,7 @@ ajay.Display ();
 Console.WriteLine (ajay.Peek ());
 ajay.Display ();
 
-/// <summary>
-/// MyStack class for creating a stack using array as underlying structure 
-/// </summary>
+/// <summary>MyStack class for creating a stack using array as underlying structure </summary>
 class TStack<T> {
    // Private variable for creating array and for getting count of elements
    private T[] arrayStack;
@@ -34,28 +32,20 @@ class TStack<T> {
       count = 0;
    }
 
-   /// <summary>
-   /// Property to get capacity of the list
-   /// </summary>
+   /// <summary>Property to get capacity of the list </summary>
    public int Capacity => arrayStack.Length;
 
-   /// <summary>
-   /// Property to get count of elements in a list
-   /// </summary>
+   /// <summary>Property to get count of elements in a list </summary>
    public int Count => count;
 
-   /// <summary>
-   /// Method to add/push elements into the stack
-   /// </summary>
+   /// <summary>Method to add/push elements into the stack </summary>
    /// <param name="a">It is the element to be pushed into the stack</param>
    public void Push (T a) {
       if (count == Capacity) Array.Resize (ref arrayStack, Capacity * 2);
       arrayStack[count] = a;
       count++;
    }
-   /// <summary>
-   /// Method to Delete/Pop the last inserted element in the stack
-   /// </summary>
+   /// <summary>Method to Delete/Pop the last inserted element in the stack</summary>
    /// <returns>Returns the popped Element</returns>
    /// <exception cref="InvalidOperationException"></exception>
    public T Pop () {
@@ -67,9 +57,7 @@ class TStack<T> {
       return poppedItem;
    }
 
-   /// <summary>
-   /// Method to peek the last element inserted at the top of the stack
-   /// </summary>
+   /// <summary> Method to peek the last element inserted at the top of the stack </summary>
    /// <returns>return the top element in the stack</returns>
    /// <exception cref="InvalidOperationException"></exception>
    public T Peek () {
@@ -78,17 +66,13 @@ class TStack<T> {
       return arrayStack[count - 1];
    }
 
-   /// <summary>
-   /// Method to print the stack
-   /// </summary>
+   /// <summary> Method to print the stack </summary>
    public void Display () {
       Console.Write ("Stack : ");
       for (int i = 0; i < count; i++) { Console.Write (arrayStack[i] + " "); }
       Console.WriteLine ();
    }
 
-   /// <summary>
-   /// Property to check the whether the list is empty or not
-   /// </summary>
+   /// <summary>Property to check the whether the list is empty or not</summary>
    public bool IsEmpty => count == 0;
 }
