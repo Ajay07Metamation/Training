@@ -14,9 +14,7 @@ Console.WriteLine ("The Dequeued element is : " + queue.Dequeue ());
 queue.Display ();
 Console.WriteLine ("The Peek element is : " + queue.Peek ());
 
-/// <summary>
-/// Class TQueue implemented with array as underlying structure
-/// </summary>
+/// <summary>Class TQueue implemented with array as underlying structure </summary>
 
 class TQueue<T> {
    //Private variable for initialising array and count
@@ -36,9 +34,7 @@ class TQueue<T> {
    //Property for getting Capacity of queue 
    public int Capacity => arrayqueue.Length;
 
-   /// <summary>
-   /// Method to add an element to the queue 
-   /// </summary>
+   /// <summary>Method to add an element to the queue</summary>
    /// <param name="a">element to be added</param>
    public void Enqueue (T a) {
       if (count == Capacity) Array.Resize (ref arrayqueue, Capacity * 2);
@@ -46,9 +42,7 @@ class TQueue<T> {
       count++;
    }
 
-   /// <summary>
-   /// Method to delete the first inserted element 
-   /// </summary>
+   /// <summary>Method to delete the first inserted element </summary>
    /// <returns>The deleted element </returns>
    /// <exception cref="InvalidOperationException"></exception>
    public T Dequeue () {
@@ -60,9 +54,7 @@ class TQueue<T> {
       return dequeuedElement;
    }
 
-   /// <summary>
-   /// Method to find the peek element in the queue
-   /// </summary>
+   /// <summary>Method to find the peek element in the queue </summary>
    /// <returns>The first element of the queue</returns>
    /// <exception cref="InvalidOperationException"></exception>
    public T Peek () {
@@ -73,9 +65,7 @@ class TQueue<T> {
    //Property to check if the queue is empty
    public bool IsEmpty => count == 0;
 
-   /// <summary>
-   /// Method to print the elements of the queue
-   /// </summary>
+   /// <summary>Method to print the elements of the queue </summary>
    public void Display () {
       if (IsEmpty) return;
       Console.Write ("QUEUE : ");
