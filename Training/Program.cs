@@ -1,7 +1,7 @@
-﻿//Program.cs
-//Voting Contest
-//Given a string of votes and find the winner based on highest number of votes
-//Sample Input : aaABBcd Sample Output : a or A
+﻿// Program.cs
+// Voting Contest
+// Given a string of votes and find the winner based on highest number of votes
+// Sample Input : aaABBcd Sample Output : a or A
 
 using static System.Console;
 
@@ -16,10 +16,10 @@ if (vote != null && vote.Length > 0 && vote.All (char.IsLetter)) {
 
 //Method - 1 (USING LINQ OPERATORS)
 
-///<summary>GetWinner : Returns the winner having highest number of votes 
-///If 2 contestant have same number of votes, First contestant who got vote is winner</summary>
-///<param name="vote">String of votes</param>
-///<return>Returns a tuple (multiple return Values) containg the highest occuring character and the number of occurences</return>
+/// <summary>GetWinner : Returns the winner having highest number of votes 
+/// If 2 contestant have same number of votes, First contestant who got vote is winner</summary>
+/// <param name="vote">String of votes</param>
+/// <return>Returns a tuple (multiple return Values) containg the highest occuring character and the number of occurences</return>
 
 (char Letter, int LetterCount) GetWinner (string vote)
    => vote.GroupBy (x => x)
@@ -29,10 +29,10 @@ if (vote != null && vote.Length > 0 && vote.All (char.IsLetter)) {
 
 //Method - 2 (USING DICTIONARY)s
 
-///<summary>GetWinner2 : Returns the winner having highest number of votes 
-///If 2 contestant have same number of votes, First contestant who got vote is winner</summary>
-///<param name="vote">String of votes</param>
-///<return>Returns a tuple (multiple return Values) containg the highest occuring character and the number of occurences</return>
+/// <summary>GetWinner2 : Returns the winner having highest number of votes 
+/// If 2 contestant have same number of votes, First contestant who got vote is winner</summary>
+/// <param name="vote">String of votes</param>
+/// <return>Returns a tuple (multiple return Values) containg the highest occuring character and the number of occurences</return>
 
 (char Letter, int LetterCount) GetWinner2 (string vote) {
    // Dictionary to store letters and their count
