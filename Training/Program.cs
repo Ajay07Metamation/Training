@@ -24,36 +24,36 @@ stack.Display ();
 /// <summary>MyStack class for creating a stack using array as underlying structure </summary>
 class MyStack<T> {
    // Private variable for creating array and for getting count of elements
-   private T[] arrayStack;
-   private int count;
+   private T[] mArrayStack;
+   private int mCount;
 
    // Constructor initialising the array and count variable
    public MyStack () {
-      arrayStack = new T[4];
-      count = 0;
+      mArrayStack = new T[4];
+      mCount = 0;
    }
 
    /// <summary>Property to get capacity of the list </summary>
-   public int Capacity => arrayStack.Length;
+   public int Capacity => mArrayStack.Length;
 
    /// <summary>Property to get count of elements in a list </summary>
-   public int Count => count;
+   public int Count => mCount;
 
    /// <summary>Push elements into the stack </summary>
    /// <param name="a">It is the element to be pushed into the stack</param>
    public void Push (T a) {
-      if (count == Capacity) Array.Resize (ref arrayStack, Capacity * 2);
-      arrayStack[count] = a;
-      count++;
+      if (mCount == Capacity) Array.Resize (ref mArrayStack, Capacity * 2);
+      mArrayStack[mCount] = a;
+      mCount++;
    }
    /// <summary>Pop the last inserted element in the stack</summary>
    /// <returns>Returns the popped Element</returns>
    /// <exception cref="InvalidOperationException"></exception>
    public T Pop () {
       if (IsEmpty) throw new InvalidOperationException ();
-      var poppedItem = arrayStack[count - 1];
-      Array.Clear (arrayStack, count - 1, 1);
-      count--;
+      var poppedItem = mArrayStack[mCount - 1];
+      Array.Clear (mArrayStack, mCount - 1, 1);
+      mCount--;
       Write ("Popped element : ");
       return poppedItem;
    }
@@ -64,16 +64,16 @@ class MyStack<T> {
    public T Peek () {
       if (IsEmpty) throw new InvalidOperationException ();
       Write ("Peek element : ");
-      return arrayStack[count - 1];
+      return mArrayStack[mCount - 1];
    }
 
    /// <summary>Print the stack</summary>
    public void Display () {
       Write ("Stack : ");
-      for (int i = 0; i < count; i++) { Write (arrayStack[i] + " "); }
+      for (int i = 0; i < mCount; i++) { Write (mArrayStack[i] + " "); }
       WriteLine ();
    }
 
    /// <summary>Property to check the whether the list is empty or not</summary>
-   public bool IsEmpty => count == 0;
+   public bool IsEmpty => mCount == 0;
 }
