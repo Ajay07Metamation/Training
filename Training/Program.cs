@@ -28,8 +28,8 @@ PrintCoins (black);
 WriteLine ("\u2517" + String.Concat (Enumerable.Repeat ("\u2501\u2501\u2501\u2501\u2501\u253B", 7)) +
            "\u2501\u2501\u2501\u2501\u2501\u251B");
 
-// This prints the main coins on the chess board
-// "pieces" Indicates the colour of coins
+// Prints the main coins on the chess board
+// "pieces" - Indicates the main coins
 void PrintCoins (string[] pieces) {
    Write ("\u2503");
    foreach (var piece in pieces)
@@ -37,15 +37,16 @@ void PrintCoins (string[] pieces) {
    WriteLine ();
 }
 
-// This prints the pawns on the chess board
-// "colour" Indicates the colour of coins
+// Prints the pawns on the chess board
+// "colour" - Indicates the colour of coins
 void PrintPawns (char colour) {
    Write ("\u2503");
    Write (String.Concat (Enumerable.Repeat ($"  {(colour == 'W' ? "\u2659" : "\u265F")}  \u2503", 8)));
    WriteLine ();
 }
 
-// Print horizontal and vertical lines for grid
-// "line" horizontal (H) or vertical (v) Grid
-void DrawLines (char line) => WriteLine (line == 'H' ? "\u2523" + String.Concat (Enumerable.Repeat ("\u2501\u2501\u2501\u2501\u2501\u252b", 8))
-                                                     : String.Concat (Enumerable.Repeat ("\u2503     ", 9)));
+// Prints horizontal and vertical lines for grid
+// "line" - horizontal (H) or vertical (v) Grid
+void DrawLines (char line) => WriteLine (line == 'H'
+                              ? "\u2523" + String.Concat (Enumerable.Repeat ("\u2501\u2501\u2501\u2501\u2501\u252b", 8))
+                              : String.Concat (Enumerable.Repeat ("\u2503     ", 9)));
