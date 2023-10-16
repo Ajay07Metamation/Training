@@ -1,5 +1,6 @@
 ﻿// Numbers to words or roman numbers
 
+using System.ComponentModel;
 using static System.Console;
 
 var key = ConsoleKey.Y;
@@ -40,14 +41,13 @@ void NumToWords (int num) {
         if (numlength == 1 || (numlength == 2 && num <= 20)) {
             result += words[num];
             break;
-        } else if (numlength == 2 && num > 20)
-            divisor = 1;
-        else
-            divisor = (int)Math.Pow (10, numlength - 1);
+        } else if (numlength == 2 && num > 20) divisor = 1;
+        else divisor = (int)Math.Pow (10, numlength - 1);
         int quo = num / divisor;
-        result += (quo.ToString ().Length == 2 && quo > 20 ? words[quo - (quo % 10)] + " " + words[quo % 10] : words[quo])
-                + (numlength >= 3 ? words[numlength * ((int)Math.Pow (10, numlength - 1))] : "")
-                + (numlength == 3 && num % 100 != 0 ? "and " : "");
+        var formattedQuo = quo.ToString ().Length == 2 && quo > 20 ? words[quo - (quo % 10)] + " " + words[quo % 10] : words[quo];
+        var place = numlength >= 3 ? words[numlength * ((int)Math.Pow (10, numlength - 1))] : "";
+        var connector = numlength == 3 && num % 100 != 0 ? "and " : "";
+        result += formattedQuo + place + connector;
         num %= divisor;
     }
     Write ($"{result}");
