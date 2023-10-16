@@ -1,23 +1,20 @@
-﻿//Numbers to words or roman numbers
+﻿// Numbers to words or roman numbers
 
 using static System.Console;
 
 var key = ConsoleKey.Y;
 while (key == ConsoleKey.Y) {
     Write ("Enter a Number : ");
-    if (!int.TryParse (ReadLine (), out int num) && num >= 0) {
+    if (!int.TryParse (ReadLine (), out int num) && num < 0) {
         WriteLine ("Enter valid number");
         continue;
     }
     Write ("Do you want to convert it into (W)ords or (R)oman Numbers ?  ");
     var choice = ReadKey ().Key;
-    if (choice == ConsoleKey.W) {
-        WriteLine ();
-        NumToWords (num);
-    } else if (choice == ConsoleKey.R) {
-        WriteLine ();
-        NumToRomans (num);
-    } else WriteLine ("Enter a valid key");
+    WriteLine ();
+    if (choice == ConsoleKey.W) NumToWords (num);
+    else if (choice == ConsoleKey.R) NumToRomans (num);
+    else WriteLine ("Enter a valid key");
     WriteLine ("\nDo you want to convert again (Y)es or (N)o ? ");
     key = ReadKey ().Key;
     WriteLine ();
@@ -25,7 +22,7 @@ while (key == ConsoleKey.Y) {
 
 // Method to convert numbers to words using dictionary
 void NumToWords (int num) {
-    Dictionary<int, string> numtowords = new () {
+    Dictionary<int, string> words = new () {
         [1] = "One", [2] = "Two", [3] = "Three", [4] = "Four",
         [5] = "Five", [6] = "Six", [7] = "Seven", [8] = "Eight", [9] = "Nine", [10] = "Ten", [11] = "Eleven",
         [12] = "Twelve", [13] = "Thirteen", [14] = "Fourteen", [15] = "Fifteen", [16] = "Sixteen", [17] = "Seventeen",
@@ -43,15 +40,15 @@ void NumToWords (int num) {
         int numlength = num.ToString ().Length;
         int divisor = 0;
         if (numlength == 1 || (numlength == 2 && num <= 20)) {
-            result += numtowords[num];
+            result += words[num];
             break;
         } else if (numlength == 2 && num > 20)
             divisor = 1;
         else
             divisor = numlength == 3 || numlength % 2 == 0 ? (int)Math.Pow (10, numlength - 1) : (int)Math.Pow (10, numlength - 2);
         int quo = num / divisor;
-        result += (quo.ToString ().Length == 2 && quo > 20 ? numtowords[quo - (quo % 10)] + " " + numtowords[quo % 10] : numtowords[quo])
-                + (numlength >= 3 ? numtowords[numlength * ((int)Math.Pow (10, numlength - 1))] : "")
+        result += (quo.ToString ().Length == 2 && quo > 20 ? words[quo - (quo % 10)] + " " + words[quo % 10] : words[quo])
+                + (numlength >= 3 ? words[numlength * ((int)Math.Pow (10, numlength - 1))] : "")
                 + (numlength == 3 && num % 100 != 0 ? "and " : "");
         num %= divisor;
     }
