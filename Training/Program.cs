@@ -44,7 +44,8 @@ void NumToWords (int num) {
         } else if (numlength == 2 && num > 20) divisor = 1;
         else divisor = (int)Math.Pow (10, numlength - 1);
         int quo = num / divisor;
-        var formattedQuo = quo.ToString ().Length == 2 && quo > 20 ? words[quo - (quo % 10)] + " " + words[quo % 10] : words[quo];
+        var unitDigit = quo % 10;
+        var formattedQuo = quo.ToString ().Length == 2 && quo > 20 ? words[quo - unitDigit] + " " + words[unitDigit] : words[quo];
         var place = numlength >= 3 ? words[numlength * ((int)Math.Pow (10, numlength - 1))] : "";
         var connector = numlength == 3 && num % 100 != 0 ? "and " : "";
         result += formattedQuo + place + connector;
