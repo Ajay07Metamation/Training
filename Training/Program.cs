@@ -2,39 +2,48 @@
 // Create a list (MyList<T>) with underlying structure as array using property,methods and private variables
 
 // TEST CASE
+using static System.Console;
 
-MyList<int> list = new ();
-list.Add (1);
-list.Add (2);
-list.Add (3);
-list.Add (4);
-list.Add (5);
-list.Add (6);
-list.Add (7);
-list.Add (8);
-list.PrintList ();
-list.Insert (4, 9);
-list.PrintList ();
-list.Remove (4);
-list.PrintList (); ;
-list.RemoveAt (2);
-list.PrintList ();
-list.Clear ();
-list.PrintList ();
+internal class Program {
+   private static void Main (string[] args) {
+      MyList<int> list = new ();
+      list.Add (1);
+      list.Add (2);
+      list.Add (3);
+      list.Add (4);
+      list.PrintList ();
+      WriteLine (list.Capacity);
+      list.Remove (3);
+      list.PrintList ();
+      list.Add (5);
+      list.Add (6);
+      list.Add (7);
+      list.Add (8);
+      list.PrintList ();
+      list.Insert (4, 9);
+      list.PrintList ();
+      list.Remove (4);
+      list.PrintList (); ;
+      list.RemoveAt (2);
+      list.PrintList ();
+      list.Clear ();
+      list.PrintList ();
+   }
+}
 
 /// <summary>Creating a class MyList with underlying structure as array</summary>
 class MyList<T> {
    // Private variables for creating array and int variable for count
-   T[] marrayList;
-   int mcount;
+   T[] mArrayList;
+   int mCount;
    public MyList () {
-      marrayList = new T[4];
-      mcount = 0;
+      mArrayList = new T[4];
+      mCount = 0;
    }
 
    /// <summary>Creating property for getting count and capacity</summary>
-   public int Count => mcount;
-   public int Capacity => marrayList.Length;
+   public int Count => mCount;
+   public int Capacity => mArrayList.Length;
 
    /// <summary>public T this[int index] is a property used to get a element at a index or set it</summary>
    /// <returns>returns the element at the specified index</returns>
@@ -42,70 +51,68 @@ class MyList<T> {
    public T this[int index] {
       get {
          if (index < 0 || index > Capacity) throw new IndexOutOfRangeException ();
-         return marrayList[index];
+         return mArrayList[index];
       }
       set {
          if (index < 0 || index > Capacity) throw new IndexOutOfRangeException ();
-         marrayList[index] = value;
+         mArrayList[index] = value;
       }
    }
 
-   /// <summary>Method Add to add an element in the list at the end</summary>
+   /// <summary>Adds an element at the end of the list</summary>
    /// <param name="a">It is the element to be added to the list</param>
    public void Add (T a) {
       if (a == null) throw new ArgumentNullException ();
-      if (mcount == Capacity) Array.Resize (ref marrayList, Capacity * 2);
-      marrayList[mcount++] = a;
+      if (mCount == Capacity) Array.Resize (ref mArrayList, Capacity * 2);
+      mArrayList[mCount++] = a;
    }
 
-   /// <summary>Method remove to remove a particular element</summary>
+   /// <summary>Remove a particular element given</summary>
    /// <param name="a">The element in the list to be removed</param>
    /// <exception cref="InvalidOperationException"></exception>
    public bool Remove (T a) {
-      if (Array.IndexOf (marrayList, a) == -1) throw new InvalidOperationException ();
-      int index = Array.IndexOf (marrayList, a, 0, mcount);
-      for (int i = index; i < mcount; i++) marrayList[i] = marrayList[i + 1];
-      mcount--;
+      var elementPositon = Array.IndexOf (mArrayList, a, 0, mCount - 1);
+      if (elementPositon == -1) throw new InvalidOperationException ();
+      for (int i = elementPositon; i < mCount - 1; i++) mArrayList[i] = mArrayList[i + 1];
+      mCount--;
       return true;
    }
 
-   /// <summary>Method clear to clear the list</summary>
+   /// <summary>Clears the list</summary>
    /// <exception cref="InvalidOperationException"></exception>
    public void Clear () {
-      if (marrayList.Length <= 0) throw new InvalidOperationException ();
-      Array.Clear (marrayList, 0, mcount);
-      mcount = 0;
+      if (mArrayList.Length <= 0) throw new InvalidOperationException ();
+      Array.Clear (mArrayList, 0, mCount - 1);
+      mCount = 0;
    }
 
-   /// <summary>Method Insert to insert a specified element at a specified index</summary>
+   /// <summary>Insert a specified element at a specified index</summary>
    /// <param name="index">The index where the element should be inserted</param>
    /// <param name="a">The element to be inserted</param>
    /// <exception cref="IndexOutOfRangeException"></exception>
    public void Insert (int index, T a) {
       if (a == null) throw new ArgumentNullException ();
-      if (index < 0 || index > mcount) throw new IndexOutOfRangeException ();
-      if (mcount == marrayList.Length) Array.Resize (ref marrayList, Capacity * 2);
-      for (int i = mcount; i > index; i--) marrayList[i] = marrayList[i - 1];
-      marrayList[index] = a;
-      mcount++;
+      if (index < 0 || index > mCount - 1) throw new IndexOutOfRangeException ();
+      if (mCount == mArrayList.Length) Array.Resize (ref mArrayList, Capacity * 2);
+      for (int i = mCount; i > index; i--) mArrayList[i] = mArrayList[i - 1];
+      mArrayList[index] = a;
+      mCount++;
    }
 
-   /// <summary>Method RemoveAt to remove the element at a particular index</summary>
+   /// <summary>Removes the element at a particular index</summary>
    /// <param name="index">The index at which the element is to be removed</param>
    /// <exception cref="IndexOutOfRangeException"></exception>
    public void RemoveAt (int index) {
-      if (index < 0 || index > mcount) throw new IndexOutOfRangeException ();
-      if (mcount == marrayList.Length) Array.Resize (ref marrayList, Capacity * 2);
-      for (int i = index; i < mcount; i++) marrayList[i] = marrayList[i + 1];
-      mcount--;
+      if (index < 0 || index > mCount - 1) throw new IndexOutOfRangeException ();
+      for (int i = index; i < mCount - 1; i++) mArrayList[i] = mArrayList[i + 1];
+      mCount--;
    }
 
-   /// <summary>Method to print the list</summary>
+   /// <summary>Prints the list</summary>
    public void PrintList () {
-      Console.Write ("List : ");
-      for (int i = 0; i < mcount; i++) {
-         Console.Write (marrayList[i] + " ");
-      }
-      Console.WriteLine ();
+      Write ("List : ");
+      for (int i = 0; i < mCount; i++)
+         Write (mArrayList[i] + " ");
+      WriteLine ();
    }
 }
