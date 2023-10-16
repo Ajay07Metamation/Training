@@ -17,9 +17,9 @@ PrintCoins (white);
 DrawLines ('H');
 PrintPawns ('W');
 for (int i = 0; i < 5; i++) {
-    DrawLines ('V');
-    DrawLines ('H');
-    DrawLines ('V');
+   DrawLines ('V');
+   DrawLines ('H');
+   DrawLines ('V');
 }
 PrintPawns ('B');
 DrawLines ('H');
@@ -31,19 +31,18 @@ WriteLine ("\u2517" + String.Concat (Enumerable.Repeat ("\u2501\u2501\u2501\u250
 // This prints the main coins on the chess board
 // "pieces" Indicates the colour of coins
 void PrintCoins (string[] pieces) {
-    Write ("\u2503");
-    foreach (var piece in pieces)
-        Write ($"  {piece}  \u2503");
-    WriteLine ();
+   Write ("\u2503");
+   foreach (var piece in pieces)
+      Write ($"  {piece}  \u2503");
+   WriteLine ();
 }
 
 // This prints the pawns on the chess board
 // "colour" Indicates the colour of coins
-
 void PrintPawns (char colour) {
-    Write ("\u2503");
-    Write (String.Concat (Enumerable.Repeat ($"  {(colour == 'W' ? "\u2659" : "\u265F")}  \u2503", 8)));
-    WriteLine ();
+   Write ("\u2503");
+   Write (String.Concat (Enumerable.Repeat ($"  {(colour == 'W' ? "\u2659" : "\u265F")}  \u2503", 8)));
+   WriteLine ();
 }
 
 // Print horizontal and vertical lines for grid
