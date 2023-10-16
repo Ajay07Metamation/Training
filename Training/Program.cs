@@ -21,7 +21,7 @@ stack.Display ();
 WriteLine (stack.Peek ());
 stack.Display ();
 
-/// <summary>MyStack class for creating a stack using array as underlying structure </summary>
+/// <summary>Represents a variable size last in first out collection of instances of same specified type</summary>
 class MyStack<T> {
    // Private variable for creating array and for getting count of elements
    private T[] mArrayStack;
@@ -33,10 +33,10 @@ class MyStack<T> {
       mCount = 0;
    }
 
-   /// <summary>Property to get capacity of the list </summary>
+   /// <summary>Returns the capacity of the stack</summary>
    public int Capacity => mArrayStack.Length;
 
-   /// <summary>Property to get count of elements in a list </summary>
+   /// <summary>Returns the number of elements in the stack</summary>
    public int Count => mCount;
 
    /// <summary>Push elements into the stack </summary>
@@ -59,7 +59,7 @@ class MyStack<T> {
    }
 
    /// <summary>Print the last element inserted at the top of the stack</summary>
-   /// <returns>return the top element in the stack</returns>
+   /// <returns>Returns the top element in the stack</returns>
    /// <exception cref="InvalidOperationException"></exception>
    public T Peek () {
       if (IsEmpty) throw new InvalidOperationException ();
@@ -74,6 +74,6 @@ class MyStack<T> {
       WriteLine ();
    }
 
-   /// <summary>Property to check the whether the list is empty or not</summary>
+   /// <summary>Returns True or False after checking the list is empty or not</summary>
    public bool IsEmpty => mCount == 0;
 }
