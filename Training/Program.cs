@@ -28,10 +28,10 @@ class TQueue<T> {
       mCount = 0;
    }
 
-   // Property for getting count of elements in the queue
+   /// <summary>Returns the number of elements in the queue</summary>
    public int Count => mCount;
 
-   // Property for getting Capacity of queue 
+   /// <summary>Returns the capacity of the queue</summary>
    public int Capacity => mArrayQueue.Length;
 
    /// <summary>Add/Enqueue an element to the queue</summary>
@@ -54,7 +54,7 @@ class TQueue<T> {
       return dequeuedElement;
    }
 
-   /// <summary>Returns the peek element in the queue </summary>
+   /// <summary>Returns the peek element in the queue</summary>
    /// <returns>The first element of the queue</returns>
    /// <exception cref="InvalidOperationException"></exception>
    public T Peek () {
@@ -62,7 +62,7 @@ class TQueue<T> {
       return mArrayQueue[0];
    }
 
-   // Property to check if the queue is empty
+   /// <summary>Returns True or False after checking the Queue is empty or not</summary>
    public bool IsEmpty => mCount == 0;
 
    /// <summary>Print the elements of the queue</summary>
