@@ -5,7 +5,7 @@ using static System.Console;
 var key = ConsoleKey.Y;
 while (key == ConsoleKey.Y) {
     Write ("Enter a Number : ");
-    if (!int.TryParse (ReadLine (), out int num) && num < 0) {
+    if (!int.TryParse (ReadLine (), out int num) || num < 0) {
         WriteLine ("Enter valid number");
         continue;
     }
