@@ -20,6 +20,7 @@ internal class Program {
       list.Add (7);
       list.Add (8);
       list.PrintList ();
+      WriteLine (list.Count);
       list.Insert (4, 9);
       list.PrintList ();
       list.Remove (4);
@@ -28,10 +29,11 @@ internal class Program {
       list.PrintList ();
       list.Clear ();
       list.PrintList ();
+      WriteLine (list.Count);
    }
 }
 
-/// <summary>Creating a class MyList with underlying structure as array</summary>
+/// <summary>Represents a strongly typed list of objects accessed using index</summary>
 class MyList<T> {
    // Private variables for creating array and int variable for count
    T[] mArrayList;
@@ -41,11 +43,13 @@ class MyList<T> {
       mCount = 0;
    }
 
-   /// <summary>Creating property for getting count and capacity</summary>
+   /// <summary>Returns the number of elements in the list</summary>
    public int Count => mCount;
+
+   /// <summary>Returns the capacity of the list</summary>
    public int Capacity => mArrayList.Length;
 
-   /// <summary>public T this[int index] is a property used to get a element at a index or set it</summary>
+   /// <summary>Get a element at a index or set it</summary>
    /// <returns>returns the element at the specified index</returns>
    /// <exception cref="IndexOutOfRangeException"></exception>
    public T this[int index] {
@@ -116,3 +120,4 @@ class MyList<T> {
       WriteLine ();
    }
 }
+
