@@ -1,11 +1,18 @@
-﻿// MyList<T>
+﻿// ----------------------------------------------------------------------------------------
+// Training 
+// Copyright (c) Metamation India.
+// ----------------------------------------------------------------------------------------
+// Program.cs
+// MyList<T>
 // Create a list (MyList<T>) with underlying structure as array using property,methods and private variables
+// ----------------------------------------------------------------------------------------
 
-// TEST CASE
 using static System.Console;
+
 
 internal class Program {
    private static void Main (string[] args) {
+      // TEST CASE
       MyList<int> list = new ();
       list.Add (1);
       list.Add (2);
@@ -13,18 +20,19 @@ internal class Program {
       list.Add (4);
       list.PrintList ();
       WriteLine (list.Capacity);
-      list.Remove (3);
+      list.Remove (4);
       list.PrintList ();
       list.Add (5);
       list.Add (6);
       list.Add (7);
       list.Add (8);
       list.PrintList ();
+      list.Remove (8);
+      list.PrintList ();
       WriteLine (list.Count);
       list.Insert (4, 9);
+      list.Add (11);
       list.PrintList ();
-      list.Remove (4);
-      list.PrintList (); ;
       list.RemoveAt (2);
       list.PrintList ();
       list.Clear ();
@@ -35,9 +43,6 @@ internal class Program {
 
 /// <summary>Represents a strongly typed list of objects accessed using index</summary>
 class MyList<T> {
-   // Private variables for creating array and int variable for count
-   T[] mArrayList;
-   int mCount;
    public MyList () {
       mArrayList = new T[4];
       mCount = 0;
@@ -65,19 +70,20 @@ class MyList<T> {
 
    /// <summary>Adds an element at the end of the list</summary>
    /// <param name="a">It is the element to be added to the list</param>
-   public void Add (T a) {
-      if (a == null) throw new ArgumentNullException ();
+   public void Add (T element) {
+      if (element == null) throw new ArgumentNullException ();
       if (mCount == Capacity) Array.Resize (ref mArrayList, Capacity * 2);
-      mArrayList[mCount++] = a;
+      mArrayList[mCount++] = element;
    }
 
    /// <summary>Remove a particular element given</summary>
    /// <param name="a">The element in the list to be removed</param>
    /// <exception cref="InvalidOperationException"></exception>
-   public bool Remove (T a) {
-      var elementPositon = Array.IndexOf (mArrayList, a, 0, mCount - 1);
+   public bool Remove (T element) {
+      var elementPositon = Array.IndexOf (mArrayList, element);
       if (elementPositon == -1) throw new InvalidOperationException ();
-      for (int i = elementPositon; i < mCount - 1; i++) mArrayList[i] = mArrayList[i + 1];
+      if (elementPositon != mCount - 1)
+         for (int i = elementPositon; i < mCount - 1; i++) mArrayList[i] = mArrayList[i + 1];
       mCount--;
       return true;
    }
@@ -94,12 +100,12 @@ class MyList<T> {
    /// <param name="index">The index where the element should be inserted</param>
    /// <param name="a">The element to be inserted</param>
    /// <exception cref="IndexOutOfRangeException"></exception>
-   public void Insert (int index, T a) {
-      if (a == null) throw new ArgumentNullException ();
+   public void Insert (int index, T element) {
+      if (element == null) throw new ArgumentNullException ();
       if (index < 0 || index > mCount - 1) throw new IndexOutOfRangeException ();
       if (mCount == mArrayList.Length) Array.Resize (ref mArrayList, Capacity * 2);
       for (int i = mCount; i > index; i--) mArrayList[i] = mArrayList[i - 1];
-      mArrayList[index] = a;
+      mArrayList[index] = element;
       mCount++;
    }
 
@@ -108,7 +114,8 @@ class MyList<T> {
    /// <exception cref="IndexOutOfRangeException"></exception>
    public void RemoveAt (int index) {
       if (index < 0 || index > mCount - 1) throw new IndexOutOfRangeException ();
-      for (int i = index; i < mCount - 1; i++) mArrayList[i] = mArrayList[i + 1];
+      if (index != mCount)
+         for (int i = index; i < mCount - 1; i++) mArrayList[i] = mArrayList[i + 1];
       mCount--;
    }
 
@@ -119,5 +126,8 @@ class MyList<T> {
          Write (mArrayList[i] + " ");
       WriteLine ();
    }
-}
 
+   // Private variables for creating array and int variable for count
+   T[] mArrayList;
+   int mCount;
+}
