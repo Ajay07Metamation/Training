@@ -1,7 +1,6 @@
 ﻿// MyStack<T>
-// To create a Stack using array as underlying structure 
-
-// Test Case
+// Implementation of stack using array
+// Test case
 using static System.Console;
 
 MyStack<char> stack = new ();
@@ -10,22 +9,22 @@ stack.Push ('a');
 stack.Push ('b');
 stack.Push ('c');
 stack.Push ('d');
+stack.Display ();
+WriteLine ("The popped element is : " + stack.Pop ());
+stack.Display ();
 stack.Push ('e');
 stack.Push ('f');
 stack.Push ('g');
 stack.Push ('h');
 stack.Display ();
 WriteLine (stack.IsEmpty);
-WriteLine (stack.Pop ());
+WriteLine ("The popped element is : " + stack.Pop ());
 stack.Display ();
-WriteLine (stack.Peek ());
+WriteLine ("The peek element is : " + stack.Peek ());
 stack.Display ();
 
 /// <summary>Represents a variable size last in first out collection of instances of same specified type</summary>
 class MyStack<T> {
-   // Private variable for creating array and for getting count of elements
-   private T[] mArrayStack;
-   private int mCount;
 
    // Constructor initialising the array and count variable
    public MyStack () {
@@ -47,14 +46,13 @@ class MyStack<T> {
       mCount++;
    }
    /// <summary>Pop the last inserted element in the stack</summary>
-   /// <returns>Returns the popped Element</returns>
+   /// <returns>Returns the popped element</returns>
    /// <exception cref="InvalidOperationException"></exception>
    public T Pop () {
       if (IsEmpty) throw new InvalidOperationException ();
       var poppedItem = mArrayStack[mCount - 1];
       Array.Clear (mArrayStack, mCount - 1, 1);
       mCount--;
-      Write ("Popped element : ");
       return poppedItem;
    }
 
@@ -63,17 +61,20 @@ class MyStack<T> {
    /// <exception cref="InvalidOperationException"></exception>
    public T Peek () {
       if (IsEmpty) throw new InvalidOperationException ();
-      Write ("Peek element : ");
       return mArrayStack[mCount - 1];
    }
 
    /// <summary>Print the stack</summary>
    public void Display () {
       Write ("Stack : ");
-      for (int i = 0; i < mCount; i++) { Write (mArrayStack[i] + " "); }
+      for (int i = 0; i < mCount; i++) Write (mArrayStack[i] + " ");
       WriteLine ();
    }
 
-   /// <summary>Returns True or False after checking the list is empty or not</summary>
+   /// <summary>Returns true or false after checking the list is empty or not</summary>
    public bool IsEmpty => mCount == 0;
+
+   // Private variable for creating array and for getting count of elements
+   T[] mArrayStack;
+   int mCount;
 }
