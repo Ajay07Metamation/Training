@@ -1,26 +1,27 @@
-﻿//TQueue
-//Test Case
+﻿// TQueue
+// Implementation of queue using array
+// Test Case
 using static System.Console;
 
-TQueue<int> queue = new TQueue<int> ();
+TQueue<int> queue = new ();
 queue.Enqueue (1);
 queue.Enqueue (2);
 queue.Enqueue (3);
 queue.Enqueue (4);
+queue.Display ();
+WriteLine ("The Dequeued element is : " + queue.Dequeue ());
+queue.Display ();
 queue.Enqueue (5);
 queue.Enqueue (6);
+queue.Enqueue (7);
+queue.Enqueue (8);
 queue.Display ();
 WriteLine ("The Dequeued element is : " + queue.Dequeue ());
 queue.Display ();
 WriteLine ("The Peek element is : " + queue.Peek ());
 
 /// <summary>Represent a first in first out principle collection of objects</summary>
-
 class TQueue<T> {
-   // Private variable for initialising array and count
-   T[] mArrayQueue;
-   int mCount;
-
 
    // Constructor for initializing the array and count
    public TQueue () {
@@ -43,7 +44,7 @@ class TQueue<T> {
    }
 
    /// <summary>Delete/Dequeue the first inserted element</summary>
-   /// <returns>The deleted element </returns>
+   /// <returns>Returns the deleted element </returns>
    /// <exception cref="InvalidOperationException"></exception>
    public T Dequeue () {
       if (IsEmpty) throw new InvalidOperationException ();
@@ -55,14 +56,14 @@ class TQueue<T> {
    }
 
    /// <summary>Returns the peek element in the queue</summary>
-   /// <returns>The first element of the queue</returns>
+   /// <returns>Returns the first element of the queue</returns>
    /// <exception cref="InvalidOperationException"></exception>
    public T Peek () {
       if (IsEmpty) throw new InvalidOperationException ();
       return mArrayQueue[0];
    }
 
-   /// <summary>Returns True or False after checking the Queue is empty or not</summary>
+   /// <summary>Returns true or false after checking the Queue is empty or not</summary>
    public bool IsEmpty => mCount == 0;
 
    /// <summary>Print the elements of the queue</summary>
@@ -73,5 +74,8 @@ class TQueue<T> {
       WriteLine ();
    }
 
+   // Private variable for initialising array and count
+   T[] mArrayQueue;
+   int mCount;
 }
 
