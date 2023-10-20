@@ -9,6 +9,8 @@ stack.Push ('a');
 stack.Push ('b');
 stack.Push ('c');
 stack.Push ('d');
+stack.Push ('e');
+stack.Push ('f');
 stack.Display ();
 WriteLine ("The popped element is : " + stack.Pop ());
 stack.Display ();
@@ -39,7 +41,7 @@ class MyStack<T> {
    public int Count => mCount;
 
    /// <summary>Push elements into the stack </summary>
-   /// <param name="a">It is the element to be pushed into the stack</param>
+   /// <param name="a">Element to be pushed into the stack</param>
    public void Push (T a) {
       if (mCount == Capacity) Array.Resize (ref mArrayStack, Capacity * 2);
       mArrayStack[mCount] = a;
