@@ -49,7 +49,7 @@ class MyStack<T> {
    }
    #endregion
 
-   #region Property --------------------------------------------
+   #region Properties --------------------------------------------
    /// <summary>Returns the capacity of the stack</summary>
    public int Capacity => mArrayStack.Length;
 
