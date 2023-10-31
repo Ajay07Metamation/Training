@@ -9,7 +9,7 @@
 
 using static System.Console;
 
-
+#region Program ----------------------------------------------------------------------------------------
 internal class Program {
    private static void Main (string[] args) {
       // TEST CASE
@@ -40,14 +40,20 @@ internal class Program {
       WriteLine (list.Count);
    }
 }
+#endregion
 
+#region Class MyList ---------------------------------------------------------------------
 /// <summary>Represents a strongly typed list of objects accessed using index</summary>
 class MyList<T> {
+
+   #region Constructor -------------------------------------------
    public MyList () {
       mArrayList = new T[4];
       mCount = 0;
    }
+   #endregion
 
+   #region Property --------------------------------------------
    /// <summary>Returns the number of elements in the list</summary>
    public int Count => mCount;
 
@@ -67,7 +73,9 @@ class MyList<T> {
          mArrayList[index] = value;
       }
    }
+   #endregion
 
+   #region Implementation ----------------------------------------
    /// <summary>Adds an element at the end of the list</summary>
    /// <param name="a">It is the element to be added to the list</param>
    public void Add (T element) {
@@ -82,8 +90,7 @@ class MyList<T> {
    public bool Remove (T element) {
       var elementPositon = Array.IndexOf (mArrayList, element);
       if (elementPositon == -1) throw new InvalidOperationException ();
-      if (elementPositon != mCount - 1)
-         for (int i = elementPositon; i < mCount - 1; i++) mArrayList[i] = mArrayList[i + 1];
+      for (int i = elementPositon; i < mCount - 1; i++) mArrayList[i] = mArrayList[i + 1];
       mCount--;
       return true;
    }
@@ -114,8 +121,7 @@ class MyList<T> {
    /// <exception cref="IndexOutOfRangeException"></exception>
    public void RemoveAt (int index) {
       if (index < 0 || index > mCount - 1) throw new IndexOutOfRangeException ();
-      if (index != mCount)
-         for (int i = index; i < mCount - 1; i++) mArrayList[i] = mArrayList[i + 1];
+      for (int i = index; i < mCount - 1; i++) mArrayList[i] = mArrayList[i + 1];
       mCount--;
    }
 
@@ -126,8 +132,12 @@ class MyList<T> {
          Write (mArrayList[i] + " ");
       WriteLine ();
    }
+   #endregion
 
+   #region Private data ------------------------------------------
    // Private variables for creating array and int variable for count
    T[] mArrayList;
    int mCount;
+   #endregion
 }
+#endregion
