@@ -13,32 +13,6 @@ namespace Training {
    #region Program ----------------------------------------------------------------------------------------
    internal class Program {
       public static void Main (string[] args) {
-         // TEST CASE
-         MyList<int> list = new ();
-         list.Add (1);
-         list.Add (2);
-         list.Add (3);
-         list.Add (4);
-         list.PrintList ();
-         WriteLine (list.Capacity);
-         list.Remove (4);
-         list.PrintList ();
-         list.Add (5);
-         list.Add (6);
-         list.Add (7);
-         list.Add (8);
-         list.PrintList ();
-         list.Remove (8);
-         list.PrintList ();
-         WriteLine (list.Count);
-         list.Insert (4, 9);
-         list.Add (11);
-         list.PrintList ();
-         list.RemoveAt (2);
-         list.PrintList ();
-         list.Clear ();
-         list.PrintList ();
-         WriteLine (list.Count);
       }
    }
    #endregion
@@ -65,13 +39,13 @@ namespace Training {
       /// <returns>returns the element at the specified index</returns>
       /// <exception cref="IndexOutOfRangeException"></exception>
       public T this[int index] {
-         get {
-            if (index < 0 || index > Capacity) throw new IndexOutOfRangeException ();
-            return mArrayList[index];
-         }
          set {
-            if (index < 0 || index > Capacity) throw new IndexOutOfRangeException ();
+            if (index < 0 || index > mCount) throw new IndexOutOfRangeException ();
             mArrayList[index] = value;
+         }
+         get {
+            if (index < 0 || index > mCount) throw new IndexOutOfRangeException ();
+            return mArrayList[index];
          }
       }
       #endregion
@@ -99,7 +73,7 @@ namespace Training {
       /// <summary>Clears the list</summary>
       /// <exception cref="InvalidOperationException"></exception>
       public void Clear () {
-         if (mArrayList.Length <= 0) throw new InvalidOperationException ();
+         if (mCount <= 0) throw new InvalidOperationException ();
          Array.Clear (mArrayList, 0, mCount - 1);
          mCount = 0;
       }
