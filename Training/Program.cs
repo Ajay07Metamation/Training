@@ -3,8 +3,8 @@
 // Copyright (c) Metamation India.
 // ----------------------------------------------------------------------------------------
 // Program.cs
-// MyStack<T>
-// Create a stack (MyStack<T>) with underlying structure as array using property,methods and private variables
+// MyQueue<T>
+// Create a Queue (MyQueue<T>) with underlying structure as array using property,methods and private variables
 // ----------------------------------------------------------------------------------------
 using static System.Console;
 
@@ -20,6 +20,7 @@ internal class Program {
       WriteLine ("The dequeued element is : " + queue.Dequeue ());
       WriteLine ("The dequeued element is : " + queue.Dequeue ());
       queue.Display ();
+      WriteLine ("The dequeued element is : " + queue.Dequeue ());
       queue.Enqueue (8);
       WriteLine ("The peek element is : " + queue.Peek ());
       queue.Display ();
@@ -54,7 +55,7 @@ class TQueue<T> {
    public TQueue () {
       mArrayQueue = new T[4];
       mCount = 0;
-      mFront = 0;
+      mFront = -1;
       mRear = -1;
 
    }
@@ -75,6 +76,7 @@ class TQueue<T> {
    /// <summary>Add/Enqueue an element to the queue</summary>
    /// <param name="a">Element to be added</param>
    public void Enqueue (T a) {
+      if (mFront == -1) mFront = 0;
       if (mCount == Capacity) {
          ArrayResize ();
          Array.Resize (ref mArrayQueue, Capacity * 2);
@@ -90,11 +92,11 @@ class TQueue<T> {
    public T Dequeue () {
       if (IsEmpty) throw new InvalidOperationException ();
       var dequeuedElement = mArrayQueue[mFront];
-      mFront = (mFront + 1) % Capacity;
       if (mFront == mRear) {
          mRear = -1;
-         mFront = 0;
+         mFront = -1;
       }
+      mFront = (mFront + 1) % Capacity;
       mCount--;
       return dequeuedElement;
    }
