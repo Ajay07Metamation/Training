@@ -10,10 +10,10 @@ namespace TestCustomStack {
             mStack.Push (2);
             mStack.Push (3);
             mStack.Push (4);
-            Assert.AreEqual (4,mStack.Count);
+            Assert.AreEqual (4, mStack.Count);
             mStack.Push (5);
-            Assert.AreEqual (5,mStack.Count);
-            Assert.AreEqual (8,mStack.Capacity);
+            Assert.AreEqual (5, mStack.Count);
+            Assert.AreEqual (8, mStack.Capacity);
         }
 
         [TestMethod]
@@ -25,8 +25,8 @@ namespace TestCustomStack {
             mStack.Push (3);
             mStack.Push (4);
             mStack.Push (5);
-            Assert.AreEqual(5,mStack.Pop ());
-            Assert.AreEqual (4,mStack.Count);
+            Assert.AreEqual (5, mStack.Pop ());
+            Assert.AreEqual (4, mStack.Count);
         }
 
         [TestMethod]
@@ -38,7 +38,7 @@ namespace TestCustomStack {
             mStack.Push (3);
             mStack.Push (4);
             mStack.Push (5);
-            Assert.AreEqual (5,mStack.Peek ());
+            Assert.AreEqual (5, mStack.Peek ());
         }
 
         [TestMethod]
@@ -48,7 +48,7 @@ namespace TestCustomStack {
             mStack.Push (3);
             mStack.Push (4);
             mStack.Push (5);
-            mStack.Display();
+            mStack.Display ();
         }
     }
 }
