@@ -16,3 +16,7 @@
 *.vcxproj.user
 *.csproj.user
 **/launchSettings.json
+*.html
+*.Output
+**/Debug/
+
