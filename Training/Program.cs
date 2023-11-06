@@ -46,7 +46,7 @@ internal class Program {
 }
 #endregion
 
-#region Class MyStack ---------------------------------------------------------------------
+#region Class MyQueue ---------------------------------------------------------------------
 /// <summary>Represent a first in first out principle collection of objects</summary>
 class TQueue<T> {
 
