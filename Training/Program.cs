@@ -3,16 +3,17 @@
 // Copyright (c) Metamation India.
 // ----------------------------------------------------------------------------------------
 // Program.cs
-// MyList<T>
-// Create a list (MyList<T>) with underlying structure as array using property,methods and private variables
+// MyStack<T>
+// Create a stack (MyStack<T>) with underlying structure as array using property,methods and private variables
 // ----------------------------------------------------------------------------------------
 
 namespace Training {
+
    using static System.Console;
 
    #region Program ----------------------------------------------------------------------------------------
    internal class Program {
-      public static void Main (string[] args) {
+      private static void Main (string[] args) {
       }
    }
    #endregion
@@ -39,13 +40,13 @@ namespace Training {
       /// <returns>returns the element at the specified index</returns>
       /// <exception cref="IndexOutOfRangeException"></exception>
       public T this[int index] {
-         set {
-            if (index < 0 || index > mCount) throw new IndexOutOfRangeException ();
-            mArrayList[index] = value;
-         }
          get {
-            if (index < 0 || index > mCount) throw new IndexOutOfRangeException ();
+            if (index < 0 || index > Capacity) throw new IndexOutOfRangeException ();
             return mArrayList[index];
+         }
+         set {
+            if (index < 0 || index > Capacity) throw new IndexOutOfRangeException ();
+            mArrayList[index] = value;
          }
       }
       #endregion
@@ -73,7 +74,7 @@ namespace Training {
       /// <summary>Clears the list</summary>
       /// <exception cref="InvalidOperationException"></exception>
       public void Clear () {
-         if (mCount <= 0) throw new InvalidOperationException ();
+         if (mCount == 0) throw new InvalidOperationException ();
          Array.Clear (mArrayList, 0, mCount - 1);
          mCount = 0;
       }
