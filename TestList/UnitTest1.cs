@@ -91,7 +91,7 @@ namespace Testlist {
             mTestList.Add (4);
             mTestList.Clear ();
             Assert.AreEqual (0, mTestList.Count);
-            Assert.ThrowsException<InvalidOperationException> (() => mTestList.Clear ());
+            Assert.ThrowsException<InvalidOperationException> (() => mTestList.Clear ());    
         }
 
         [TestMethod]

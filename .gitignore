@@ -18,3 +18,4 @@
 **/launchSettings.json
 **/dotCover.Output
 *.html
+**/Debug/
