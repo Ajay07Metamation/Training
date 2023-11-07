@@ -22,13 +22,6 @@ namespace Training {
    /// <summary>Represents a strongly typed list of objects accessed using index</summary>
    public class MyList<T> {
 
-      #region Constructor -------------------------------------------
-      public MyList () {
-         mArrayList = new T[4];
-         mCount = 0;
-      }
-      #endregion
-
       #region Property --------------------------------------------
       /// <summary>Returns the number of elements in the list</summary>
       public int Count => mCount;
@@ -56,16 +49,15 @@ namespace Training {
       /// <param name="a">It is the element to be added to the list</param>
       public void Add (T element) {
          if (element == null) throw new ArgumentNullException ();
-         if (mCount == Capacity) Array.Resize (ref mArrayList, Capacity * 2);
+         ArrayResize ();
          mArrayList[mCount++] = element;
       }
 
       /// <summary>Remove a particular element given</summary>
       /// <param name="a">The element in the list to be removed</param>
-      /// <exception cref="InvalidOperationException"></exception>
       public bool Remove (T element) {
          var elementPositon = Array.IndexOf (mArrayList, element);
-         if (elementPositon == -1) throw new InvalidOperationException ();
+         if (elementPositon == -1) return false;
          for (int i = elementPositon; i < mCount - 1; i++) mArrayList[i] = mArrayList[i + 1];
          mCount--;
          return true;
@@ -86,7 +78,7 @@ namespace Training {
       public void Insert (int index, T element) {
          if (element == null) throw new ArgumentNullException ();
          if (index < 0 || index > mCount - 1) throw new IndexOutOfRangeException ();
-         if (mCount == mArrayList.Length) Array.Resize (ref mArrayList, Capacity * 2);
+         ArrayResize ();
          for (int i = mCount; i > index; i--) mArrayList[i] = mArrayList[i - 1];
          mArrayList[index] = element;
          mCount++;
@@ -97,8 +89,11 @@ namespace Training {
       /// <exception cref="IndexOutOfRangeException"></exception>
       public void RemoveAt (int index) {
          if (index < 0 || index > mCount - 1) throw new IndexOutOfRangeException ();
-         for (int i = index; i < mCount - 1; i++) mArrayList[i] = mArrayList[i + 1];
-         mCount--;
+         Remove (mArrayList[index]);
+      }
+
+      void ArrayResize () {
+         if (mCount == Capacity) Array.Resize (ref mArrayList, Capacity * 2);
       }
 
       /// <summary>Prints the list</summary>
@@ -112,8 +107,8 @@ namespace Training {
 
       #region Private data ------------------------------------------
       // Private variables for creating array and int variable for count
-      T[] mArrayList;
-      int mCount;
+      T[] mArrayList = new T[4];
+      int mCount = 0;
       #endregion
    }
 }
