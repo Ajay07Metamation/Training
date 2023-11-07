@@ -12,7 +12,7 @@ namespace Training {
 
    #region Program ----------------------------------------------------------------------
    internal class Program {
-      private static void Main (string[] args) { 
+      private static void Main (string[] args) {
       }
    }
    #endregion
@@ -20,14 +20,6 @@ namespace Training {
    #region Class MyStack ---------------------------------------------------------------------
    /// <summary>Represents a last in first out principle (LIFO) collection of instances of same specified type</summary>
    public class MyStack<T> {
-
-      #region Constructor -------------------------------------------
-      // Constructor initialising the array and count variable
-      public MyStack () {
-         mArrayStack = new T[4];
-         mCount = 0;
-      }
-      #endregion
 
       #region Properties --------------------------------------------
       /// <summary>Returns the capacity of the stack</summary>
@@ -45,8 +37,7 @@ namespace Training {
       /// <param name="a">Element to be pushed into the stack</param>
       public void Push (T a) {
          if (mCount == Capacity) Array.Resize (ref mArrayStack, Capacity * 2);
-         mArrayStack[mCount] = a;
-         mCount++;
+         mArrayStack[mCount++] = a;
       }
 
       /// <summary>Pop the last inserted element in the stack</summary>
@@ -55,6 +46,7 @@ namespace Training {
       public T Pop () {
          if (IsEmpty) throw new InvalidOperationException ();
          var poppedItem = mArrayStack[mCount - 1];
+         mArrayStack[mCount - 1] = default;
          Array.Clear (mArrayStack, mCount - 1, 1);
          mCount--;
          return poppedItem;
@@ -78,8 +70,8 @@ namespace Training {
 
       #region Private Data ------------------------------------------
       // Private variable for creating array and for getting count of elements
-      T[] mArrayStack;
-      int mCount;
+      T[] mArrayStack = new T[4];
+      int mCount = 0;
       #endregion
    }
    #endregion

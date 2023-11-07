@@ -39,6 +39,7 @@ namespace TestCustomStack {
             mStack.Push (4);
             mStack.Push (5);
             Assert.AreEqual (5, mStack.Peek ());
+            Assert.AreEqual (5, mStack.Count);
         }
 
         [TestMethod]
