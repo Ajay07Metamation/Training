@@ -63,8 +63,10 @@ namespace Testlist {
             mTestList.Add (2);
             mTestList.Add (3);
             mTestList.Add (4);
-            Assert.ThrowsException<InvalidOperationException> (() => mTestList.Remove (7));
-            Assert.AreEqual (true, mTestList.Remove (1));
+            Assert.AreEqual (4, mTestList.Count);
+            Assert.IsFalse (mTestList.Remove (7));
+            Assert.IsTrue (mTestList.Remove (1));
+            Assert.AreEqual (3, mTestList.Count);
             Assert.AreEqual (2, mTestList[0]);
         }
 
@@ -91,7 +93,7 @@ namespace Testlist {
             mTestList.Add (4);
             mTestList.Clear ();
             Assert.AreEqual (0, mTestList.Count);
-            Assert.ThrowsException<InvalidOperationException> (() => mTestList.Clear ());    
+            Assert.ThrowsException<InvalidOperationException> (() => mTestList.Clear ());
         }
 
         [TestMethod]
