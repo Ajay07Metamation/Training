@@ -25,6 +25,7 @@ namespace TestQueue {
             Assert.AreEqual (5, mQueue.Count);
             Assert.AreEqual (8, mQueue.Capacity);
         }
+
         [TestMethod]
         public void TestDequeue () {
             Assert.IsTrue (mQueue.IsEmpty);
@@ -49,7 +50,6 @@ namespace TestQueue {
             mQueue.Enqueue (4);
             Assert.AreEqual (1, mQueue.Peek ());
         }
-
 
         [TestMethod]
         public void TestDisplay () {

@@ -13,6 +13,29 @@ namespace Training {
    #region Program ----------------------------------------------------------------------
    internal class Program {
       private static void Main (string[] args) {
+         TQueue<int> queue = new TQueue<int> ();
+         queue.Enqueue (1);
+         queue.Enqueue (2);
+         queue.Enqueue (3);
+         queue.Enqueue (4);
+         queue.Display ();
+         queue.Dequeue ();
+         queue.Display ();
+         queue.Dequeue ();
+         queue.Display ();
+         queue.Enqueue (8);
+         queue.Enqueue (9);
+         queue.Enqueue (10);
+         queue.Enqueue (11);
+         queue.Enqueue (12);
+         queue.Enqueue (13);
+         queue.Enqueue (14);
+         queue.Enqueue (15);
+         queue.Display ();
+         queue.Dequeue ();
+         queue.Dequeue ();
+         queue.Display ();
+         Console.WriteLine ("Peek:" + queue.Peek ());
       }
    }
    #endregion
@@ -20,17 +43,6 @@ namespace Training {
    #region Class MyQueue ---------------------------------------------------------------------
    /// <summary>Represent a first in first out principle collection of objects</summary>
    public class TQueue<T> {
-
-      #region Constructor -------------------------------------------
-      // Constructor for initializing the array and count
-      public TQueue () {
-         mArrayQueue = new T[4];
-         mCount = 0;
-         mFront = -1;
-         mRear = -1;
-
-      }
-      #endregion
 
       #region Properties --------------------------------------------
       /// <summary>Returns the number of elements in the queue</summary>
@@ -47,12 +59,11 @@ namespace Training {
       /// <summary>Add/Enqueue an element to the queue</summary>
       /// <param name="a">Element to be added</param>
       public void Enqueue (T a) {
-         if (mFront == -1) mFront = 0;
          if (mCount == Capacity) {
             ArrayResize ();
          }
-         mRear = (mRear + 1) % Capacity;
          mArrayQueue[mRear] = a;
+         mRear = (mRear + 1) % Capacity;
          mCount++;
       }
 
@@ -62,10 +73,6 @@ namespace Training {
       public T Dequeue () {
          if (IsEmpty) throw new InvalidOperationException ();
          var dequeuedElement = mArrayQueue[mFront];
-         if (mFront == mRear) {
-            mRear = -1;
-            mFront = -1;
-         }
          mFront = (mFront + 1) % Capacity;
          mCount--;
          return dequeuedElement;
@@ -83,30 +90,25 @@ namespace Training {
       public void Display () {
          if (IsEmpty) return;
          Write ("QUEUE : ");
-         int i = mFront;
-         for (; i != mRear; i = (i + 1) % Capacity) Write (mArrayQueue[i] + " ");
-         Write (mArrayQueue[i]);
+         for (int i = 0; i < mCount; i++) Write (mArrayQueue[(i + mFront) % Capacity] + " ");
          WriteLine ();
       }
 
       /// <summary>Resizes the array</summary>
       void ArrayResize () {
-         T[] newArray = new T[Capacity*2];
+         T[] newArray = new T[Capacity * 2];
          int j = 0;
-         do {
-            newArray[j] = mArrayQueue[mFront];
-            mFront = (mFront + 1) % Capacity;
-            j++;
-         } while (mFront != (mRear + 1) % Capacity);
+         for (int i = 0; i < mCount; i++)
+            newArray[i] = mArrayQueue[(i + mFront) % Capacity];
          mArrayQueue = newArray;
          mFront = 0;
-         mRear = Capacity - 1;
+         mRear = mCount;
       }
       #endregion
 
       #region Private Data ------------------------------------------
       // Private variable for initialising array and count
-      T[] mArrayQueue;
+      T[] mArrayQueue = new T[4];
       int mCount, mFront, mRear;
       #endregion
    }
