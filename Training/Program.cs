@@ -60,7 +60,10 @@ namespace Training {
       /// <param name="a">Element to be added</param>
       public void Enqueue (T a) {
          if (mCount == Capacity) {
-            ArrayResize ();
+            T[] newArray = new T[Capacity * 2];
+            for (int i = 0; i < mCount; i++)
+               newArray[i] = mArrayQueue[(i + mFront) % Capacity];
+            (mArrayQueue, mFront, mRear) = (newArray, 0, mCount);
          }
          mArrayQueue[mRear] = a;
          mRear = (mRear + 1) % Capacity;
@@ -73,6 +76,7 @@ namespace Training {
       public T Dequeue () {
          if (IsEmpty) throw new InvalidOperationException ();
          var dequeuedElement = mArrayQueue[mFront];
+         mArrayQueue[mFront] = default;
          mFront = (mFront + 1) % Capacity;
          mCount--;
          return dequeuedElement;
@@ -92,17 +96,6 @@ namespace Training {
          Write ("QUEUE : ");
          for (int i = 0; i < mCount; i++) Write (mArrayQueue[(i + mFront) % Capacity] + " ");
          WriteLine ();
-      }
-
-      /// <summary>Resizes the array</summary>
-      void ArrayResize () {
-         T[] newArray = new T[Capacity * 2];
-         int j = 0;
-         for (int i = 0; i < mCount; i++)
-            newArray[i] = mArrayQueue[(i + mFront) % Capacity];
-         mArrayQueue = newArray;
-         mFront = 0;
-         mRear = mCount;
       }
       #endregion
 
