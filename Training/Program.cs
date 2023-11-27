@@ -33,44 +33,46 @@ internal class Program {
    #endregion
 
    #region Implementation ----------------------------------------
-   /// <summary>Method to get all valid solutions of eight queens using backtracking</summary>
+   /// <summary>Get all valid solutions of eight queens using backtracking</summary>
    /// <param name="r">Row of the chess board where queen is to placed</param>
    /// <param name="unique">To store the choice of required type of solution</param>
    static void EightQueens (int r, bool unique = false) {
       for (sPosition[r] = 0; sPosition[r] < 8; sPosition[r]++) {
          if (!IsSafe (r)) continue;
          if (r == 7) {
-            if (unique == true && IsUniqueSolution (sPosition.ToArray ())) return;
+            if (unique && IsUniqueSolution (sPosition.ToArray ())) return;
             sSolutions.Add (sPosition.ToArray ());
          } else EightQueens (r + 1, unique);
       }
    }
 
-   /// <summary>Method to get position of the queen</summary>
+   /// <summary>Checks if placing a queen at a particular position in row r in a chessboard is safe</summary>
    /// <param name="r">Row of the chess board</param>
    /// <returns>Return true if safe and false if not safe</returns>
    static bool IsSafe (int r) {
       for (int i = 0; i < r; i++) {
          int x = r - i, y = Math.Abs (sPosition[r] - sPosition[i]);
+         //To check if 2 queens are not in same column or diagnol 
          if (y == 0 || x - y == 0) return false;
       }
       return true;
    }
 
-   /// <summary>Method to check whether the solution obtained is unique</summary>
+   /// <summary>Check whether the solution obtained is unique</summary>
    /// <param name="position">The array to be checked</param>
    /// <returns>Returns true if the solution is not unique and false if unique</returns>
    static bool IsUniqueSolution (int[] position) {
       for (int i = 0; i < 4; i++) {
          position = Rotate (position);
+         //Checks if the rotated or mirrored solution already exist in the list 
          if (sSolutions.Any (s => s.SequenceEqual (position) || s.SequenceEqual (Mirror (position)))) return true;
       }
       return false;
    }
 
-   /// <summary>Method to rotate the given array</summary>
-   /// <param name="position">The array to be rotated</param>
-   /// <returns>Returns the rotated array</returns>
+   /// <summary>Rotate the cells of the chessboard by 90 degree</summary>
+   /// <param name="position">The cell to be rotated</param>
+   /// <returns>Returns the rotated solution</returns>
    static int[] Rotate (int[] position) {
       int[] rotated = new int[8];
       for (int i = 0; i < 8; i++)
@@ -78,12 +80,12 @@ internal class Program {
       return rotated;
    }
 
-   /// <summary>Method to mirror the given array</summary>
-   /// <param name="position">The array to be mirrored</param>
-   /// <returns>Returns the mirrored array</returns>
+   /// <summary>Mirror the cell along vertical axis</summary>
+   /// <param name="position">The cell to be mirrored</param>
+   /// <returns>Returns the mirrored solution</returns>
    static int[] Mirror (int[] position) => position.Select (p => 7 - p).ToArray ();
 
-   /// <summary>Method to print the solutions</summary>
+   /// <summary>Print the solutions</summary>
    static void PrintSolution () {
       OutputEncoding = new UnicodeEncoding ();
       for (int i = 0; i < sSolutions.Count; i++) {
