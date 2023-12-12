@@ -13,7 +13,7 @@ namespace Training {
    #region Program ----------------------------------------------------------------------------------------
    internal class Program {
       public static void Main (string[] args) {
-         // Array containing different possibile representation of double precision floating point number
+         // Dictionary containing different possibile representation of double precision floating point number
          const double NaN = double.NaN;
          Dictionary<string, double> dnumbers = new () {
             ["-12"] = -12, ["+12"] = 12, ["12"] = 12, ["-+12"] = NaN, ["*12"] = NaN,
@@ -27,8 +27,8 @@ namespace Training {
          foreach (var number in dnumbers) {
             bool same = Same (Math.Round (MyDouble.Parse (number.Key), 8), number.Value);
             if (!same) ForegroundColor = ConsoleColor.DarkRed;
-            WriteLine ($"{number.Key} \nExpected : {number.Value} \nActual : {MyDouble.Parse(number.Key)}");
-            ResetColor();
+            WriteLine ($"{number.Key} \nExpected : {number.Value} \nActual : {MyDouble.Parse (number.Key)}");
+            ResetColor ();
             bool Same (double a, double b) {
                if (double.IsNaN (a)) return double.IsNaN (b);
                return Math.Abs (a - b) < 1e-6;
@@ -50,29 +50,29 @@ namespace Training {
       /// <exception cref="FormatException">Throws exception if the string provided is not in correct format</exception>
       public static double Parse (string number) {
          number = number.Trim ().ToLower ();
-         double result = 0, exp = 0, factor = 0.1,sign = 1, eSign = 1;
+         double result = 0, exp = 0, factor = 0.1, sign = 1, eSign = 1;
          int process = 1;
          int eindex = number.IndexOf ('e');
 
          // Checks if the string is in incorrect format and throws exception
-         if (string.IsNullOrWhiteSpace (number) || sChars.Any(number.EndsWith) || number.StartsWith ('e'))
-            return double.NaN ;
+         if (string.IsNullOrWhiteSpace (number) || sChars.Any (number.EndsWith) || number.StartsWith ('e'))
+            return double.NaN;
          for (int i = 0; i < number.Length; i++) {
             char ch = number[i];
             // To get sign of the number 
-            if (process == 1 && (ch is '+' or '-' or '.'|| char.IsDigit (ch))) {
+            if (process == 1 && (ch is '+' or '-' or '.' || char.IsDigit (ch))) {
                if (ch is '+' or '-') {
                   sign = ch == '-' ? -1 : 1;
-                  process = 2; 
-               }else if (char.IsDigit (ch)) {
-                    i--; process = 2; 
-               }else if (ch == '.') process = 3;
+                  process = 2;
+               } else if (char.IsDigit (ch)) {
+                  i--; process = 2;
+               } else if (ch == '.') process = 3;
             }
             // To evaluate the integral part of the number
             else if (process == 2) {
                if (char.IsDigit (ch)) result = result * 10 + (ch - '0');
                else if (ch == '.') process = 3;
-               else if (ch == 'e' && char.IsDigit(number[i-1])) process = 4;
+               else if (ch == 'e' && char.IsDigit (number[i - 1])) process = 4;
                else return double.NaN;
             }
             // To evaluate the fraction part of the number
@@ -80,12 +80,12 @@ namespace Training {
                if (char.IsDigit (ch)) {
                   result += factor * (ch - '0');
                   factor /= 10;
-               } else if (char.IsDigit(number[i-1]) && ch == 'e') process = 4;
+               } else if (char.IsDigit (number[i - 1]) && ch == 'e') process = 4;
                else return double.NaN;
             }
             // To get the sign of exponent and evaluate the exponential part of the number
             else {
-               if (ch is '+' or '-' && char.IsDigit(number[i+1]))
+               if (ch is '+' or '-' && char.IsDigit (number[i + 1]))
                   eSign = number[eindex + 1] == '-' ? -1 : 1;
                else if (char.IsDigit (ch)) exp = exp * 10 + (ch - '0');
                else return double.NaN;
