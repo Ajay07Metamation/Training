@@ -13,18 +13,35 @@ namespace Training {
    #region Program ----------------------------------------------------------------------------------------
    internal class Program {
       public static void Main (string[] args) {
-         //Array containing diiferent possibile representation of double precision floating point number
-         string[] doubleNumberArray = {"123.45","-678.901","1.2e3","-3.4e-5","0.00789","4.56E7","9.01234e-12",
-                                      "+2.345e6","-7.8E9","  45.678  ","  -0.123  ","  6.789e+4  ","  -5.6E-7  " };
-         foreach (var number in doubleNumberArray)
-            WriteLine (MyDouble.Parse (number));
+         // Array containing different possibile representation of double precision floating point number
+         const double NaN = double.NaN;
+         Dictionary<string, double> dnumbers = new () {
+            ["-12"] = -12, ["+12"] = 12, ["12"] = 12, ["-+12"] = NaN, ["*12"] = NaN,
+            ["12.3"] = 12.3, ["12.34"] = 12.34, ["12.-3"] = NaN, [".14"] = 0.14, ["12."] = 12, ["12~"] = NaN, ["a12"] = NaN,
+            ["12b"] = NaN, ["12..3"] = NaN, ["12e3"] = 12000, ["12.34e3"] = 12340, ["12.34E-2"] = 0.1234, ["12.3e"] = NaN,
+            ["12.3e-+"] = NaN, ["12.3e-+3"] = NaN, ["12.34e5."] = NaN, [".e3"] = NaN, ["e4"] = NaN, ["12e"] = NaN,
+            ["12.34"] = 12.34, ["0.12"] = 0.12, ["12.0"] = 12, ["12e0"] = 12, ["0e0"] = 0, ["12.0e0"] = 12, ["+e3"] = NaN,
+            ["123.456"] = 123.456
+         };
+
+         foreach (var number in dnumbers) {
+            bool same = Same (Math.Round (MyDouble.Parse (number.Key), 8), number.Value);
+            if (!same) ForegroundColor = ConsoleColor.DarkRed;
+            WriteLine ($"{number.Key} \nExpected : {number.Value} \nActual : {MyDouble.Parse(number.Key)}");
+            ResetColor();
+            bool Same (double a, double b) {
+               if (double.IsNaN (a)) return double.IsNaN (b);
+               return Math.Abs (a - b) < 1e-6;
+            }
+         }
       }
    }
    #endregion
 
    #region Class MyDouble ---------------------------------------------------------------------
    /// <summary>Class mDouble - Represents a double precision floating point number</summary>
-   class MyDouble {
+   public class MyDouble {
+      static char[] sChars = { '+', '-', 'e' };
 
       #region Implementation ----------------------------------------
       /// <summary>Parse a given valid string into double precision floating point number</summary>
@@ -33,46 +50,48 @@ namespace Training {
       /// <exception cref="FormatException">Throws exception if the string provided is not in correct format</exception>
       public static double Parse (string number) {
          number = number.Trim ().ToLower ();
-         double result = 0, fraction = 0.0, exp = 0, factor = 0.1;
-         double sign = 1, expSign = 1;
+         double result = 0, exp = 0, factor = 0.1,sign = 1, eSign = 1;
          int process = 1;
-         int expindex = number.IndexOf ('e');
+         int eindex = number.IndexOf ('e');
 
          // Checks if the string is in incorrect format and throws exception
-         if (string.IsNullOrWhiteSpace (number) || number.EndsWith ('+') || number.EndsWith ('-') || number.StartsWith ('e') || number.EndsWith ('e'))
-            throw new FormatException ($"The input string '{number}' was not in a correct format.");
+         if (string.IsNullOrWhiteSpace (number) || sChars.Any(number.EndsWith) || number.StartsWith ('e'))
+            return double.NaN ;
          for (int i = 0; i < number.Length; i++) {
             char ch = number[i];
             // To get sign of the number 
-            if (process == 1 && (ch == '+' || ch == '-' || char.IsDigit (ch))) {
-               sign = ch == '-' ? -1 : 1;
-               if (char.IsDigit (ch)) i--;
-               process = 2;
+            if (process == 1 && (ch is '+' or '-' or '.'|| char.IsDigit (ch))) {
+               if (ch is '+' or '-') {
+                  sign = ch == '-' ? -1 : 1;
+                  process = 2; 
+               }else if (char.IsDigit (ch)) {
+                    i--; process = 2; 
+               }else if (ch == '.') process = 3;
             }
             // To evaluate the integral part of the number
             else if (process == 2) {
                if (char.IsDigit (ch)) result = result * 10 + (ch - '0');
                else if (ch == '.') process = 3;
-               else if (ch == 'e') process = 4;
-               else throw new FormatException ($"The input string '{number}' was not in a correct format.");
+               else if (ch == 'e' && char.IsDigit(number[i-1])) process = 4;
+               else return double.NaN;
             }
             // To evaluate the fraction part of the number
             else if (process == 3) {
                if (char.IsDigit (ch)) {
-                  fraction += factor * (ch - '0');
-                  factor *= 0.1;
-               } else if (ch == 'e') process = 4;
-               else throw new FormatException ($"The input string '{number}' was not in a correct format.");
+                  result += factor * (ch - '0');
+                  factor /= 10;
+               } else if (char.IsDigit(number[i-1]) && ch == 'e') process = 4;
+               else return double.NaN;
             }
             // To get the sign of exponent and evaluate the exponential part of the number
             else {
-               if (ch == '+' || ch == '-' || char.IsDigit (ch)) {
-                  expSign = number[expindex + 1] == '-' ? -1 : 1;
-                  if (char.IsDigit (ch)) exp = exp * 10 + (ch - '0');
-               } else throw new FormatException ($"The input string '{number}' was not in a correct format.");
+               if (ch is '+' or '-' && char.IsDigit(number[i+1]))
+                  eSign = number[eindex + 1] == '-' ? -1 : 1;
+               else if (char.IsDigit (ch)) exp = exp * 10 + (ch - '0');
+               else return double.NaN;
             }
          }
-         result = sign * ((result + fraction) * (exp == 0 ? 1 : Math.Pow (10, exp * expSign)));
+         result = sign * ((result) * (exp == 0 ? 1 : Math.Pow (10, exp * eSign)));
          return result;
       }
       #endregion
