@@ -13,14 +13,19 @@ using static System.Console;
 #region Program ----------------------------------------------------------------------------------------
 internal class Program {
    private static void Main (string[] args) {
-      string input = ReadLine ().Trim ().ToUpper ();
-      WriteLine (input);
-      if (!string.IsNullOrEmpty (input)) {
-         (char drive, string folder, string filename, string extension) = MyFile.Parser (input);
-         WriteLine ($"Drive : {drive} " +
-                    $"\nFolders : {folder} " +
-                    $"\nFile name : {filename} " +
-                    $"\nExtension : {extension}");
+      string[] fNames = { "C:\\Users\\Username\\Documents\\file.txt","D:\\home\\user\\data\\document.pdf",
+                          "D:\\Projects\\images\\photo.jpg","E:\\ProgramFiles\\Application\\app.exe",
+                          "E:\\gallery\\screenshot\\photo.jpg","E\\Work\\WorkGit\\Training.exe",
+                          "C:Program\\Data\\Readme.txt","D:\\program\\Readme,txt",
+                          "C:Program\\Data\\Readme"};
+      foreach (var f in fNames) {
+         (char drive, string folder, string file, string extn) = MyFile.Parser (f.ToUpper ());
+         WriteLine ($"File Path : {f}");
+         if (drive is ' ') WriteLine ("Invalid file format\n");
+         else WriteLine ($"Drive : {drive} " +
+                         $"\nFolder : {folder}" +
+                         $"\nFile name : {file} " +
+                         $"\nExtension : {extn}\n");
       }
    }
 }
@@ -34,22 +39,21 @@ class MyFile {
    /// <returns>Returns a tuple of drive,folders,file name and extension of the given file</returns>
    /// <exception cref="Exception">Throws an exception if the file name is not in correct format</exception>
    public static (char drive, string folder, string file, string extn) Parser (string fileName) {
-      Action todo;
-      Action none = () => { };
+      Action todo, none = () => { };
       char drive = ' ';
-      string folders = " ";
-      string fname = " ";
-      string extn = "";
+      string folders = "", fname = "", extn = "";
+      int sIndex;
       State s = A;
       foreach (var part in fileName + "~") {
          (s, todo) = (s, part) switch {
             (A, >= 'A' and <= 'Z') => (B, () => drive = part),
             (B, ':') => (C, none),
-            (C or E, '\\') => (D, () => folders += " "),
+            (E or C, '\\') => (D, () => folders += "\\"),
             (D or E, >= 'A' and <= 'Z') => (E, () => folders += part),
             (E, '.') => (F, () => {
-               fname = folders[folders.LastIndexOf (" ")..];
-               folders = folders[..folders.LastIndexOf (" ")];
+               sIndex = folders.LastIndexOf ("\\");
+               fname = folders[(sIndex + 1)..];
+               folders = folders[1..sIndex];
             }
             ),
             (F or G, >= 'A' and <= 'Z') => (G, () => extn += part),
@@ -59,7 +63,7 @@ class MyFile {
          todo ();
       }
       if (s == I) return (drive, folders, fname, extn);
-      throw new Exception ($"Invalid file format {fileName}");
+      return (' ', "", "", "");
    }
 }
 #endregion
