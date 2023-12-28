@@ -13,19 +13,22 @@ using static System.Console;
 #region Program ----------------------------------------------------------------------------------------
 internal class Program {
    private static void Main (string[] args) {
-      string[] fNames = { "C:\\Users\\Username\\Documents\\file.txt","D:\\home\\user\\data\\document.pdf",
-                          "D:\\Projects\\images\\photo.jpg","E:\\ProgramFiles\\Application\\app.exe",
-                          "E:\\gallery\\screenshot\\photo.jpg","E\\Work\\WorkGit\\Training.exe",
-                          "C:Program\\Data\\Readme.txt","D:\\program\\Readme,txt",
-                          "C:Program\\Data\\Readme"};
-      foreach (var f in fNames) {
-         (char drive, string folder, string file, string extn) = MyFile.Parser (f.ToUpper ());
-         WriteLine ($"File Path : {f}");
-         if (drive is ' ') WriteLine ("Invalid file format\n");
-         else WriteLine ($"Drive : {drive} " +
-                         $"\nFolder : {folder}" +
-                         $"\nFile name : {file} " +
-                         $"\nExtension : {extn}\n");
+      (string, string, string, string) Null = (null, null, null, null);
+      Dictionary<string, (string, string, string, string)> ftest = new () {
+         ["C:/Users/Username/Documents/file.txt"] = ("C", "USERS/USERNAME/DOCUMENTS", "FILE", "TXT"),
+         ["D:/home/user/data/document.pdf"] = ("D", "HOME/USER/DATA", "DOCUMENT", "PDF"),
+         ["D:/Projects/images/photo.jpg"] = ("D", "PROJECTS/IMAGES", "PHOTO", "JPG"),
+         ["E:/ProgramFiles/Application/app.exe"] = ("E", "PROGRAMFILES/APPLICATION", "APP", "EXE"),
+         ["C:/readme.txt"] = ("C", "", "README", "TXT"), ["C:Program/Data/Readme"] = Null,
+         ["C:/"] = Null, ["D:/program/Readme,txt"] = Null, ["C:/Words.txt"] = ("C", "", "WORDS", "TXT"),
+         ["C/Words.txt"] = Null
+      };
+      foreach (var (file, res) in ftest) {
+         (string, string, string, string) result = MyFile.Parser (file.ToUpper ());
+         bool same = res == result;
+         if (!same) ForegroundColor = ConsoleColor.DarkRed;
+         WriteLine ($"{file} \nExpected : {res} \nActual : {result}\n");
+         ResetColor ();
       }
    }
 }
@@ -38,22 +41,21 @@ class MyFile {
    /// <param name="fileName">Input file name</param>
    /// <returns>Returns a tuple of drive,folders,file name and extension of the given file</returns>
    /// <exception cref="Exception">Throws an exception if the file name is not in correct format</exception>
-   public static (char drive, string folder, string file, string extn) Parser (string fileName) {
+   public static (string drive, string folder, string file, string extn) Parser (string fileName) {
       Action todo, none = () => { };
-      char drive = ' ';
-      string folders = "", fname = "", extn = "";
+      string drive = "", folders = "", fname = "", extn = "";
       int sIndex;
       State s = A;
       foreach (var part in fileName + "~") {
          (s, todo) = (s, part) switch {
-            (A, >= 'A' and <= 'Z') => (B, () => drive = part),
+            (A, >= 'A' and <= 'Z') => (B, () => drive += part),
             (B, ':') => (C, none),
-            (E or C, '\\') => (D, () => folders += "\\"),
+            (E or C, '/') => (D, () => folders += "/"),
             (D or E, >= 'A' and <= 'Z') => (E, () => folders += part),
             (E, '.') => (F, () => {
-               sIndex = folders.LastIndexOf ("\\");
+               sIndex = folders.LastIndexOf ("/");
                fname = folders[(sIndex + 1)..];
-               folders = folders[1..sIndex];
+               folders = folders[..sIndex];
             }
             ),
             (F or G, >= 'A' and <= 'Z') => (G, () => extn += part),
@@ -62,8 +64,9 @@ class MyFile {
          };
          todo ();
       }
+      folders = folders == "" ? folders : folders[1..];
       if (s == I) return (drive, folders, fname, extn);
-      return (' ', "", "", "");
+      return (null, null, null, null);
    }
 }
 #endregion
