@@ -4,49 +4,30 @@ namespace Testdequeue {
    public class UnitTest1 {
       [TestMethod]
       public void Enqueue () {
-         MyDeQueue<int> myDQueue = new MyDeQueue<int> ();
-         myDQueue.FEnqueue (1);
-         myDQueue.FEnqueue (2);
-         myDQueue.FEnqueue (3);
-         myDQueue.FEnqueue (4);
-         Assert.AreEqual (4, myDQueue.Count);
-         Assert.AreEqual (4, myDQueue.Capacity);
-         myDQueue.REnqueue (5);
-         myDQueue.REnqueue (6);
+         for (int i = 1; i <= 5; i++) myDQueue.FEnqueue (i);
+         Assert.AreEqual (5, myDQueue.Count);
          Assert.AreEqual (8, myDQueue.Capacity);
-         Assert.AreEqual (6, myDQueue.Count);
-         myDQueue.REnqueue (7);
-         myDQueue.REnqueue (8);
-         myDQueue.FEnqueue (9);
-         Assert.AreEqual(16,myDQueue.Capacity);
+         for (int i = 6; i <= 9; i++) myDQueue.FEnqueue (i);
+         Assert.AreEqual (9, myDQueue.Count);
+         Assert.AreEqual (16, myDQueue.Capacity);
       }
 
       [TestMethod]
       public void Dequeue () {
-         MyDeQueue<int> myDQueue = new MyDeQueue<int> ();
          Assert.ThrowsException<InvalidOperationException> (() => myDQueue.FDequeue ());
          Assert.ThrowsException<InvalidOperationException> (() => myDQueue.RDequeue ());
-         myDQueue.FEnqueue (1);
-         myDQueue.FEnqueue (2);
-         myDQueue.FEnqueue (3);
-         myDQueue.FEnqueue (4);
+         for (int i = 1; i <= 4; i++) myDQueue.FEnqueue (i);
          Assert.AreEqual (4, myDQueue.FDequeue ());
          Assert.AreEqual (3, myDQueue.FDequeue ());
          Assert.AreEqual (1, myDQueue.RDequeue ());
          Assert.AreEqual (1, myDQueue.Count);
-         myDQueue.REnqueue (5);
-         myDQueue.REnqueue (6);
-         myDQueue.REnqueue (7);
-         myDQueue.REnqueue (8);
-         myDQueue.REnqueue (9);
+         for (int i = 5; i <= 9; i++) myDQueue.REnqueue (i);
          myDQueue.FEnqueue (10);
          Assert.AreEqual (10, myDQueue.FDequeue ());
-         myDQueue.FDequeue ();
-         myDQueue.RDequeue ();
-         myDQueue.RDequeue ();
-         myDQueue.FDequeue ();
-         myDQueue.FDequeue ();
-         myDQueue.FDequeue ();
+         for (int i = 1; i <= 3; i++) {
+            myDQueue.FDequeue ();
+            myDQueue.RDequeue ();
+         }
          myDQueue.FEnqueue (10);
          myDQueue.RDequeue ();
       }
@@ -54,13 +35,9 @@ namespace Testdequeue {
 
       [TestMethod]
       public void Peek () {
-         MyDeQueue<int> myDQueue = new MyDeQueue<int> ();
          Assert.ThrowsException<InvalidOperationException> (() => myDQueue.FPeek ());
          Assert.ThrowsException<InvalidOperationException> (() => myDQueue.RPeek ());
-         myDQueue.FEnqueue (1);
-         myDQueue.FEnqueue (2);
-         myDQueue.FEnqueue (3);
-         myDQueue.FEnqueue (4);
+         for (int i = 1; i <= 4; i++) myDQueue.FEnqueue (i);
          Assert.AreEqual (4, myDQueue.FPeek ());
          Assert.AreEqual (1, myDQueue.RPeek ());
          myDQueue.REnqueue (5);
@@ -68,5 +45,6 @@ namespace Testdequeue {
          Assert.AreEqual (4, myDQueue.FPeek ());
          Assert.AreEqual (6, myDQueue.RPeek ());
       }
+      MyDeQueue<int> myDQueue = new ();
    }
 }
