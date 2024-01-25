@@ -1,16 +1,28 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
     <TargetFramework>net7.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
-    <Nullable>enable</Nullable>
+    <GenerateDocumentationFile>True</GenerateDocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Debug\**" />
     <Compile Remove="dotCover.Output\**" />
+    <Compile Remove="Properties\**" />
+    <Compile Remove="Testdequeue\**" />
+    <Compile Remove="Training\**" />
+    <EmbeddedResource Remove="Debug\**" />
     <EmbeddedResource Remove="dotCover.Output\**" />
+    <EmbeddedResource Remove="Properties\**" />
+    <EmbeddedResource Remove="Testdequeue\**" />
+    <EmbeddedResource Remove="Training\**" />
+    <None Remove="Debug\**" />
     <None Remove="dotCover.Output\**" />
+    <None Remove="Properties\**" />
+    <None Remove="Testdequeue\**" />
+    <None Remove="Training\**" />
   </ItemGroup>
 
   <ItemGroup>
