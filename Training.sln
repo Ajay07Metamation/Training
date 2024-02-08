@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.4.33213.308
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Training", "Training.csproj", "{84D5B50E-AD8C-4F5D-8E32-6976EC7CB562}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Training", "Training.csproj", "{84D5B50E-AD8C-4F5D-8E32-6976EC7CB562}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestWordle", "TestWordle\TestWordle.csproj", "{998B802E-E416-4151-9C48-52EDEDCECAAF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{84D5B50E-AD8C-4F5D-8E32-6976EC7CB562}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{84D5B50E-AD8C-4F5D-8E32-6976EC7CB562}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{84D5B50E-AD8C-4F5D-8E32-6976EC7CB562}.Release|Any CPU.Build.0 = Release|Any CPU
+		{998B802E-E416-4151-9C48-52EDEDCECAAF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{998B802E-E416-4151-9C48-52EDEDCECAAF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{998B802E-E416-4151-9C48-52EDEDCECAAF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{998B802E-E416-4151-9C48-52EDEDCECAAF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
