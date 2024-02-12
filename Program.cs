@@ -11,14 +11,20 @@
    public class Wordle {
       // Interface ---------------------------------
       // Public interface routine to run the game
+      public Wordle () {
+         mHalfWinWidth = WindowWidth / 2;
+         GetDict ();
+      }
 
+      // Additional constructor for testing
       public Wordle (StreamWriter writer) {
          mWriter = writer;
+         GetDict ();
+         mHalfWinWidth = 0;
       }
 
       public void Run () {
          ClearScreen ();
-         SelectWord ();
          DisplayBoard ();
          while (!GameOver) {
             ConsoleKey key = ReadKey (true).Key;
@@ -42,30 +48,21 @@
       }
       bool mIsTest = false;
 
-      public bool CheckTextFilesEqual (string f1, string f2) {
-         var file1 = File.ReadAllText (f1).Replace ("\r\n", "\n");
-         var file2 = File.ReadAllText (f2).Replace ("\r\n", "\n");
-         if (file1.Equals (file2)) return true;
-         var p = System.Diagnostics.Process.Start ("C:/Program Files/WinMerge/WinMergeU.exe", $"\"{f1}\" \"{f2}\"");
-         p.WaitForExit ();
-         return false;
-      }
-
       // Implementation ----------------------------
       // Set up suitable colors and clear the screen
       void ClearScreen () {
          BackgroundColor = Black;
          Clear ();
-         GRIDX = WindowWidth / 2 - 7;
-         KBDX = WindowWidth / 2 - 16;
+         GRIDX = mHalfWinWidth - 7;
+         KBDX = mHalfWinWidth - 16;
          CursorVisible = false;
          OutputEncoding = System.Text.Encoding.Unicode;
       }
 
       // Select a word at random 
-      public void SelectWord () {
+      public void GetDict () =>
          mDict = LoadStrings ("dict-5.txt");
-      }
+
 
       // Display the current state of the board
       public void DisplayBoard () {
@@ -108,12 +105,8 @@
          // If the user has recently typed in a word that is not in the
          // dictionary, display that
          string error = (mBadWord != null) ? $"{mBadWord} is not a word" : new string (' ', 20);
-         if (IsTesting) {
-            mWriter.WriteLine ();
-            PutToFile (error, Yellow);
-            return;
-         }
-         Put (WindowWidth / 2 - 10, RESULTY + 1, Yellow, error);
+         mWriter.WriteLine ();
+         Put (mHalfWinWidth - 10, RESULTY + 1, Yellow, error);
       }
       int GRIDX = 3, GRIDY = 1;
       int KBDX = 3, KBDY = 14;
@@ -158,8 +151,7 @@
             Green => $"{{{data}}}",
             Blue => $"[{data}]",
             DarkGray => $"({data})",
-            Gray or White or Yellow => $" {data} ",
-            _ => "",
+            _ => $" {data} ",
          };
          mWriter.Write (data);
       }
@@ -168,22 +160,15 @@
       public void PrintResult () {
          if (!IsTesting) Put (KBDX, RESULTY, DarkGray, new string ('_', 31));
          mWriter.WriteLine ();
-         if (mSucceeded) {
-            if (IsTesting) {
-               PutToFile ($"You found the word in {mY} tries", Green);
-               return;
-            }
-            Put (WindowWidth / 2 - 15, RESULTY + 2, Green, $"You found the word in {mY} tries");
-         } else {
-            if (IsTesting) {
-               PutToFile ($"Sorry - the word was {SecretWord}", Yellow);
-               return;
-            }
-            Put (WindowWidth / 2 - 13, RESULTY + 2, Yellow, $"Sorry - the word was {SecretWord}");
+         if (mSucceeded)
+            Put (mHalfWinWidth - 15, RESULTY + 2, Green, $"You found the word in {mY} tries");
+         else
+            Put (mHalfWinWidth - 13, RESULTY + 2, Yellow, $"Sorry - the word was {SecretWord}");
+         if (!IsTesting) {
+            Put (mHalfWinWidth - 11, RESULTY + 4, White, "Press any key to quit");
+            ReadKey ();
+            WriteLine ();
          }
-         if (!IsTesting) Put (WindowWidth / 2 - 11, RESULTY + 4, White, "Press any key to quit");
-         //ReadKey ();
-         WriteLine ();
       }
       int RESULTY = 18;
 
@@ -210,6 +195,7 @@
       string[] mGuess = { "     ", "     ", "     ", "     ", "     ", "     " };   // The 6 guesses of the user
       int mY = 0;       // The word we're typing into now
       int mX = 0;       // The letter within that word we're typing in
+      int mHalfWinWidth;
       string mBadWord;  // This is set if the user types in a word not in the dictionary
       StreamWriter mWriter;
    }
