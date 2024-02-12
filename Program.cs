@@ -6,8 +6,8 @@
 
    internal class Program {
       private static void Main (string[] args) {
-         Wordle game =  new Wordle();
-         game.Run();
+         Wordle game = new Wordle ();
+         game.Run ();
       }
    }
    public class Wordle {
@@ -16,6 +16,7 @@
       public Wordle () {
          mHalfWinWidth = WindowWidth / 2;
          GetDict ();
+         SecretWord = mPuzzle[new Random ().Next (mPuzzle.Length)];
       }
 
       // Additional constructor for testing
@@ -62,8 +63,10 @@
       }
 
       // Select a word at random 
-      public void GetDict () =>
+      public void GetDict () {
          mDict = LoadStrings ("dict-5.txt");
+         mPuzzle = LoadStrings ("puzzle-5.txt");
+      }
 
 
       // Display the current state of the board
@@ -82,7 +85,7 @@
                if (x == mX && y == mY) ch = '\u25cc';
                Put (x * 3 + GRIDX, y * 2 + GRIDY, color, ch);
             }
-            if(IsTesting) mWriter.WriteLine ();
+            if (IsTesting) mWriter.WriteLine ();
          }
 
 
@@ -161,7 +164,7 @@
       // Print the final result
       public void PrintResult () {
          if (!IsTesting) Put (KBDX, RESULTY, DarkGray, new string ('_', 31));
-         mWriter.WriteLine ();
+         if (IsTesting) mWriter.WriteLine ();
          if (mSucceeded)
             Put (mHalfWinWidth - 15, RESULTY + 2, Green, $"You found the word in {mY} tries");
          else
@@ -193,6 +196,7 @@
 
       // State -------------------------------------
       string[] mDict;   // The dictionary of all possible words
+      string[] mPuzzle; // The dictionary of all secret words
       string mSecWord;     // The word the computer has selected
       string[] mGuess = { "     ", "     ", "     ", "     ", "     ", "     " };   // The 6 guesses of the user
       int mY = 0;       // The word we're typing into now
