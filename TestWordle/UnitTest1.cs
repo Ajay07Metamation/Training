@@ -49,8 +49,8 @@ namespace TestWordle {
 
          // Returns true if the files match else shows the difference in winMerge 
          bool CheckTextFilesEqual (string f1, string f2) {
-            var file1 = File.ReadAllText (f1).Replace ("\r\n", "\n");
-            var file2 = File.ReadAllText (f2).Replace ("\r\n", "\n");
+            var file1 = File.ReadAllText (f1);
+            var file2 = File.ReadAllText (f2);
             if (file1.Equals (file2)) return true;
             var p = System.Diagnostics.Process.Start ("C:/Program Files/WinMerge/WinMergeU.exe", $"\"{f1}\" \"{f2}\"");
             p.WaitForExit ();
