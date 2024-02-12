@@ -6,6 +6,8 @@
 
    internal class Program {
       private static void Main (string[] args) {
+         Wordle game =  new Wordle();
+         game.Run();
       }
    }
    public class Wordle {
@@ -80,7 +82,7 @@
                if (x == mX && y == mY) ch = '\u25cc';
                Put (x * 3 + GRIDX, y * 2 + GRIDY, color, ch);
             }
-            mWriter.WriteLine ();
+            if(IsTesting) mWriter.WriteLine ();
          }
 
 
@@ -99,13 +101,13 @@
                if (a == b) color = Green;
             }
             Put (x * 5 + KBDX, y * 1 + KBDY, color, ch);
-            if ((i + 1) % 7 == 0) mWriter.WriteLine ();
+            if (IsTesting && (i + 1) % 7 == 0) mWriter.WriteLine ();
          }
 
          // If the user has recently typed in a word that is not in the
          // dictionary, display that
          string error = (mBadWord != null) ? $"{mBadWord} is not a word" : new string (' ', 20);
-         mWriter.WriteLine ();
+         if (IsTesting) mWriter.WriteLine ();
          Put (mHalfWinWidth - 10, RESULTY + 1, Yellow, error);
       }
       int GRIDX = 3, GRIDY = 1;
