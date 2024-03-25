@@ -1,16 +1,27 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
     <TargetFramework>net7.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
-    <Nullable>enable</Nullable>
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Debug\**" />
     <Compile Remove="dotCover.Output\**" />
+    <Compile Remove="Testdequeue\**" />
+    <Compile Remove="TestPriorityQueue\**" />
+    <Compile Remove="TestWordle\**" />
+    <EmbeddedResource Remove="Debug\**" />
     <EmbeddedResource Remove="dotCover.Output\**" />
+    <EmbeddedResource Remove="Testdequeue\**" />
+    <EmbeddedResource Remove="TestPriorityQueue\**" />
+    <EmbeddedResource Remove="TestWordle\**" />
+    <None Remove="Debug\**" />
     <None Remove="dotCover.Output\**" />
+    <None Remove="Testdequeue\**" />
+    <None Remove="TestPriorityQueue\**" />
+    <None Remove="TestWordle\**" />
   </ItemGroup>
 
   <ItemGroup>
