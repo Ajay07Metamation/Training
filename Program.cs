@@ -13,15 +13,10 @@ namespace Training {
       }
    }
 
-   #region Class Prioirity Queue -------------------------------------------------------------------------
+   #region class PrioirityQueue ------------------------------------------------------------------
    public class PriorityQueue<T> where T : IComparable<T> {
 
-      #region Constructor --------------------------------------------------------------------------
-      public PriorityQueue () { mHeapList.Add (default); }
-      #endregion
-
-      #region Implementation------------------------------------------------------------------------
-
+      #region Implementation-----------------------------------------
       /// <summary>Enqueue element into the priority queue</summary>
       /// <param name="value">Element to be enqueued</param>
       public void Enqueue (T value) {
@@ -82,8 +77,7 @@ namespace Training {
       public void Display () { for (int i = 1; i < mHeapList.Count; i++) WriteLine (mHeapList[i]); }
       #endregion
 
-      #region Properties ---------------------------------------------------------------------------
-
+      #region Properties --------------------------------------------
       // Gets the count of the priority queue
       public int Count => mHeapList.Count;
 
@@ -91,8 +85,8 @@ namespace Training {
       public bool IsEmpty => mHeapList.Count == 1;
       #endregion
 
-      #region Private Field ------------------------------------------------------------------------
-      readonly List<T> mHeapList = new ();
+      #region Private Field -----------------------------------------
+      readonly List<T> mHeapList = new () { default };
       #endregion
    }
    #endregion

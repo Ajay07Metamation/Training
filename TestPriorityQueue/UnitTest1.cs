@@ -32,8 +32,9 @@ namespace TestPriorityQueue {
       /// <summary>Add elements</summary>
       /// Add elements to the test array and priority queue
       void AddElements () {
+         Random random = new ();
          for (int i = 0; i < 10; i++) {
-            var element = mRandom.Next (1, 100);
+            var element = random.Next (1, 100);
             mTestData[i] = element;
             mTestPQ.Enqueue (element);
          }
@@ -41,6 +42,5 @@ namespace TestPriorityQueue {
 
       PriorityQueue<int> mTestPQ = new ();
       int[] mTestData = new int[10];
-      Random mRandom = new ();
    }
 }
