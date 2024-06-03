@@ -1,21 +1,35 @@
 ﻿namespace PSI;
-using System.Collections.Generic;
-
-using System.Runtime.InteropServices;
 using static Token.E;
 
 class Parser {
    public Parser (Tokenizer tokenizer)
       => mToken = mPrevious = (mTokenizer = tokenizer).Next ();
+
+   Token Prev => mPrevious;
    Tokenizer mTokenizer;
    Token mToken, mPrevious;
 
    public NExpr Parse () => Expression ();
 
    // Implementation --------------------------------------
-   // expression = term .
-   NExpr Expression ()
-      => Term ();
+   // expression = equality .
+   NExpr Expression () => Equality ();
+
+   // equality = equality = comparison [ ("=" | "<>") comparison ] .
+   NExpr Equality () {
+      var expr = Comparison ();
+      if (Match (EQ, NEQ))
+         expr = new NBinary (expr, Prev, Comparison ());
+      return expr;
+   }
+
+   // comparison = term [ ("<" | "<=" | ">" | ">=") term ] .
+   NExpr Comparison () {
+      var expr = Term ();
+      if (Match (LT, LEQ, GT, GEQ))
+         expr = new NBinary (expr, Prev, Term ());
+      return expr;
+   }
 
    // term = factor { ("+" | "-") factor } .
    NExpr Term () {
