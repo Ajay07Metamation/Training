@@ -5,7 +5,7 @@ abstract class Node {
 }
 
 // The data-type at any NExpr node
-enum NType { Unknown, Int, Real, Bool, String, Error };
+enum NType { Unknown, Int, Real, Boolean,Char, String, Error };
 
 // Base class for all expression nodes
 abstract class NExpr : Node {

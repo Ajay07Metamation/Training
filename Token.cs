@@ -20,7 +20,7 @@ class Token {
       SEMI, PERIOD, COMMA, OPEN, CLOSE,
       COLON, _ENDPUNCTUATION,
       // Others
-      IDENT, INTEGER, REAL, BOOLEAN, STRING, EOF, ERROR
+      IDENT, INTEGER, REAL, BOOLEAN, STRING, CHAR, EOF, ERROR
    }
 
    // Print a Token

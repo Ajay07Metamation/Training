@@ -53,15 +53,16 @@ class Parser {
 
    // unary = ( "-" | "+" ) unary | primary .
    NExpr Unary () {
-      if (Match (ADD, SUB))
+      if (Match (ADD, SUB)) {
          return new NUnary (mPrevious, Unary ());
+      }
       return Primary ();
    }
 
    // primary = IDENTIFIER | INTEGER | REAL | STRING | "(" expression ")" .
    NExpr Primary () {
-      if (Match (IDENT)) return new NIdentifier (mPrevious);
-      if (Match (INTEGER, REAL, STRING)) return new NLiteral (mPrevious);
+      if (Match (IDENT)) { return new NIdentifier (mPrevious); }
+      if (Match (INTEGER, REAL, STRING)) { return new NLiteral (mPrevious); }
       Expect (OPEN, "Expecting identifier or literal");
       var expr = Expression ();
       Expect (CLOSE, "Expecting ')'");

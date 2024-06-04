@@ -5,24 +5,24 @@ class ExprGrapher : Visitor<int> {
    public ExprGrapher (string expression) => mExpression = expression;
 
    public override int Visit (NLiteral literal) {
-      mSB.AppendLine ($"id{++mId}[{literal.Value.Text}]");
+      mSB.AppendLine ($"id{++mId}[{literal.Value.Text}  {literal.Type}]");
       return mId;
    }
 
    public override int Visit (NIdentifier identifier) {
-      mSB.AppendLine ($"id{++mId}[{identifier.Name.Text}]");
+      mSB.AppendLine ($"id{++mId}[{identifier.Name.Text}  {identifier.Type}]");
       return mId;
    }
 
    public override int Visit (NUnary unary) {
       int a = unary.Expr.Accept (this);
-      mSB.AppendLine ($"id{++mId}([{unary.Op.Text}]); id{mId} --> id{a}");
+      mSB.AppendLine ($"id{++mId}([{unary.Op.Text}  {unary.Type}]); id{mId} --> id{a}");
       return mId;
    }
 
    public override int Visit (NBinary binary) {
       int a = binary.Left.Accept (this), b = binary.Right.Accept (this);
-      mSB.AppendLine ($"id{++mId}([{binary.Op.Text}]); id{mId} --> id{a}; id{mId} --> id{b}");
+      mSB.AppendLine ($"id{++mId}([{binary.Op.Text}  {binary.Type}]); id{mId} --> id{a}; id{mId} --> id{b}");
       return mId;
    }
    public void SaveTo (string file) {
