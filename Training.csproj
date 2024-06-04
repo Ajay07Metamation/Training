@@ -8,9 +8,21 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Data\**" />
     <Compile Remove="dotCover.Output\**" />
+    <Compile Remove="Testdequeue\**" />
+    <Compile Remove="TestPriorityQueue\**" />
+    <Compile Remove="TestWordle\**" />
+    <EmbeddedResource Remove="Data\**" />
     <EmbeddedResource Remove="dotCover.Output\**" />
+    <EmbeddedResource Remove="Testdequeue\**" />
+    <EmbeddedResource Remove="TestPriorityQueue\**" />
+    <EmbeddedResource Remove="TestWordle\**" />
+    <None Remove="Data\**" />
     <None Remove="dotCover.Output\**" />
+    <None Remove="Testdequeue\**" />
+    <None Remove="TestPriorityQueue\**" />
+    <None Remove="TestWordle\**" />
   </ItemGroup>
 
   <ItemGroup>
